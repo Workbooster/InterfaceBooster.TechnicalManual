@@ -1,0 +1,252 @@
+
+<h2>Record Types</h2>
+
+<p>
+Synery supports object compositions which are called "records". A record can take an indefinite number of fields. A field can take a primitive value or another record type. 
+</p>
+
+<p>
+A record can derive from another record. A derived record gets all fields of the base record. Record types can be used as parameter and as return type in function declarations. It is also possible to specify a base record type as parameter and use a derived type as value. In this way it is possible to work with inheritance like in object oriented languages.
+</p>
+
+<h3>Declaring a Record Type</h3>
+
+<p>
+Before you can create records you would have to declare a record type. The record type describes the schema of a record.
+</p>
+
+<p>
+The following statement declares a record type named "Person" that has three fields:
+<ul>
+    <li>Id (an integer number)</li>
+    <li>Firstname (a text)</li>
+    <li>Lastname (a text)</li>
+</ul>
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person(INT Id, STRING Firstname, STRING Lastname);
+</textarea>
+
+<h3>Declaring a Record Variable</h3>
+
+<p>
+To declare a new variable that takes a specified record type you can just write it in the same way as you would with primitive variables:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person p1;     // creates a variable of type #Person
+</textarea>
+
+<h3>Initializing a Record</h3>
+
+<p>
+To initialize a new record you can write:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person p1 = #Person();
+</textarea>
+
+<p>
+But now all fields of the person "p1" have the value NULL. There are three ways for initializing a record and assigning some fields:
+</p>
+
+<p><b>Option 1:</b> Assigning fields by name during the initialization:</p>
+
+<textarea class="editor" data-editor="synery">
+#Person p1 = #Person(Firstname = "Mike", Id = 15, Lastname = "Meyer");
+</textarea>
+
+<p><b>Option 2:</b> Assigning fields as parameters during the initialization. The Parameters must have the same order as in the record type declaration (INT, STRING, STRING).</p>
+
+<textarea class="editor" data-editor="synery">
+#Person p1 = #Person(15, "Mike", "Meyer");
+</textarea>
+
+<p><b>Option 3:</b> Assigning fields after the initialization:</p>
+
+<textarea class="editor" data-editor="synery">
+#Person p1 = #Person();
+p1.Firstname = "Mike";
+p1.Lastname = "Meyer";
+p1.Id = 15;
+</textarea>
+
+<h3>Accessing the Record Fields</h3>
+
+<p>
+And with the last example we also have answered the question how to access the fields. You can do that by using the following pattern: <code>recordName.fieldName</code>. For example:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person mike = #Person(Firstname = "Mike", Lastname = "Meyer");
+
+// get the first- and the lastname
+STRING fullName = mike.Firstname " " mike.Lastname;
+</textarea>
+
+<h3>Inheritance</h3>
+
+<p>
+Record types can inherit from another record type. A derived record type gets all fields of its base type.
+</p>
+
+<p>
+To apply inheritance you can use this format:<br />
+<code>RecordTypeIdentifier '(' parameterDeclartions? ')' (':' recordTypeDeclarationBaseType)? ';'</code>
+</p>
+
+<p>
+An example:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person(INT Id, STRING Firstname, STRING Lastname);
+#Employee(DECIMAL Salary) : #Person;
+#Manager(STRING Title) : #Employee;
+</textarea>
+
+<p>
+The type "Employee" inherits all fields from the type "Person". The "Manager" inherits all fields from the types "Employee" and "Person". A "Manager" type finally has these fields:
+</p>
+
+<ul>
+    <li>Id (INT)</li>
+    <li>Firstname (STRING)</li>
+    <li>Lastname (STRING)</li>
+    <li>Salary (DECIMAL)</li>
+    <li>Title (STRING)</li>
+</ul>
+
+<h3>Examples</h3>
+
+<p>
+Now let's put it all together. Here are a few examples:
+</p>
+
+<h4>Records and Fields</h4>
+
+<p>
+Here you see a simple example how to work with records and their fields:
+</p>
+
+<textarea class="editor" data-editor="synery">
+// We'd like to be able to store some information about a person.
+// So we are going to declare a record type called "Person"
+#Person(STRING Firstname, STRING Lastname, #Person Mother);
+
+// Lets assume we have two women: Monika and Debby.
+// Monika is the mother of Debby.
+
+#Person monika = #Person(Firstname = "Monika", Lastname = "Meyer");
+#Person debby = #Person(Firstname = "Debby", Lastname = "Meyer", Mother = monika);
+
+// Now Debby marries and changes her lastname to "Smith".
+debby.Lastname = "Smith"
+
+// Next we'd like to check whether someone is someone else's child.
+// Because we plan to re-use this logic we write a function.
+BOOL IsChildOf(#Person child, #Person potentialParent)
+    IF child.Mother == potentialParent
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END
+END
+
+// Now let's call the function and store the result in a variable.
+BOOL isDebbyAChildOfMonika = IsChildOf(debby, monika);      // = TRUE
+
+// Next we'd like to find out the full name of someones mother.
+// So we're also going to create a function for that.
+STRING GetMothersName(#Person child)
+    IF child.Mother != NULL
+        // Here we see that we also can access a field of a record stored inside of a field
+        RETURN child.Mother.Firstname + " " + child.Mother.Lastname;
+    ELSE
+        RETURN "unknown";
+    END
+END
+
+// So we can easily call the function to get the mothers full name
+STRING nameOfDebbysMother = GetMothersName(debby);          // = "Monika Meyer"
+STRING nameOfMonikasMother = GetMothersName(monika);        // = "unknown"
+</textarea>
+
+<h4>Inheritance</h4>
+
+<p>
+Here you see another example how the inheritance works:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Food(INT Weight);
+#Meal(BOOL IsEatenCold) : #Food;
+#Beverage(DOUBLE Liter) : #Food;
+
+#Cheese(INT Year) : #Meal;
+#Meat(STRING Animal) : #Meal;
+
+#Water(BOOL IsSparkling) : #Beverage;
+#Wine(INT Year, STRING CountryOfOrigin) : #Beverage;
+
+#WhiteWine() : #Wine;
+#RoseWine() : #Wine;
+#RedWine() : #Wine;
+</textarea>
+
+<p>
+That leads to this inheritance structure:
+<ul>
+    <li>Food(Weight)
+    <ul>
+        <li>Meal(IsEatenCold)
+        <ul>
+            <li>Cheese(Year)</li>
+            <li>Meat(Animal)</li>
+        </ul></li>
+        <li>Beverage(Liter)
+        <ul>
+            <li>Water(IsSparkling)</li>
+            <li>Wine(Year, CountryOfOrigin)
+            <ul>
+                <li>WhiteWine()</li>
+                <li>RoseWine()</li>
+                <li>RedWine()</li>
+            </ul></li>
+        </ul></li>
+    </ul></li>
+</ul>
+</p>
+
+<p>
+Now we can create a few records using the record types from above:
+</p>
+
+<textarea class="editor" data-editor="synery">
+// Note that the water inherits all fields from its base record types "Food" and "Beverage"
+#Water sanPellegrino = #Water(Weight = 1500, Liter = 1.5, IsSparkling = TRUE);
+
+#Meat tenderloinSteak = #Meat(Weight = 350, IsEatenCold = FALSE, Animal = "Beef");
+#Cheese swissCheese = #Cheese(Weight = 200, IsEatenCold = TRUE, Year = 2012);
+
+// Create a function that takes every kind of food and calculates the shipping costs
+DECIMAL GetShippingCosts(#Food food)
+    DECIMAL shippingCosts = 0.0M;
+
+    IF food.Weight > 500
+        shippingCosts = 3.5M;
+    ELSE IF food.Weight > 1000
+        shippingCosts = 6.0M;
+    ELSE IF food.Weight > 2000
+        shippingCosts = 9.0M;
+    END
+    
+    RETURN shippingCosts;
+END
+
+// Now let's calculate some shipping costs
+DECIMAL costsForSwissCheese = GetShippingCosts(swissCheese);      // = 0.0
+DECIMAL costsForSanPellegrino = GetShippingCosts(sanPellegrino);  // = 6.0
+</textarea>

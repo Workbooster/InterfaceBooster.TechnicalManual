@@ -1,0 +1,30 @@
+body { font-family: sans-serif; background-color: #e6f5fc; overflow-y: scroll; }
+h2 { margin-top: 8px; }
+code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
+#page { max-width: 95%; margin: 0px auto; }
+#header { clear: both; }
+#navig { font-size: 0.9em; }
+#navig ul { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; list-style: none; }
+#navig li { margin: 2px 0px 0px 0px; }
+#navig ul li ul { padding: 0px 0px 0px 16px; }
+#navig a { text-decoration: none; }
+#content { }
+
+.page-container {
+    margin: 12px 0px 0px 0px; padding: 16px 16px 16px 24px; 
+    background-color: #FFF; border: 1px solid; border: 1px solid #DDD; border-radius: 16px; -moz-border-radius: 16px; 
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
+}
+.editor { 
+    margin: 24px 0px 24px 0px; width: 95%;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
+}
+.imagelink  img {
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+}

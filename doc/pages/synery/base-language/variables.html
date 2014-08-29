@@ -1,0 +1,41 @@
+
+<h2>Variables</h2>
+
+<p>
+Every variable in Synery has its type. This can be a <a href="#/synery/base-language/primitive-types">primitve data type</a> or a <a href="#/synery/base-language/record-types">record type</a>. Once a variable is declared its type cannot be changed. Synery is so-called <a href="http://en.wikipedia.org/wiki/Type_safety" target="_blank">"type safe"</a>.
+</p>
+
+<h3>Declaring a Variable</h3>
+
+<p>
+A Variable is declared by defining a type and a name:
+</p>
+
+<textarea class="editor" data-editor="synery">
+STRING someText;
+INT aNumber;
+#MyRecordType someRecord;
+</textarea>
+
+<p>
+At this time the variable isn't initialized with a value yet. Its current value is NULL.
+</p>
+
+<h3>Initializing a Variable</h3>
+
+<p>
+A variable is initialized by setting a value using the equality sign "=".
+</p>
+
+<textarea class="editor" data-editor="synery">
+INT aNumber;    // declaration
+aNumber = 5;    // initialization
+</textarea>
+
+<p>
+It's also possible to declare and initialize a variable at the same time:
+</p>
+
+<textarea class="editor" data-editor="synery">
+INT aNumber = 5;    // declaration and initialization
+</textarea>

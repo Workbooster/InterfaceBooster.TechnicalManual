@@ -1,0 +1,51 @@
+
+<h2>Synery Language</h2>
+
+<p>
+Synery is a scripting language that is used to implement the business logic of an interface application.
+</p>
+
+<h3>Features</h3>
+
+<ul>
+    <li>Well-thought-out mix between less syntax and good readability</li>
+    <li>Integrated import and export commands</li>
+    <li>Support for functional programming</li>
+    <li>Object compositions (records)</li>
+    <li>Type-safe</li>
+    <li>Event and exception handling</li>
+    <li>Expandable with native .NET code (Library Plugins)</li>
+    <li>Powerful query language
+    <ul>
+        <li>SQL-like commands</li>
+        <li>In-memory operation</li>
+        <li>Optimized for handling large amounts of data</li>
+    </ul></li>
+    <li>Integrated database
+    <ul>
+        <li>Optimized for speed</li>
+        <li>Well integrated with the query language</li>
+    </ul></li>
+</ul>
+
+<h3>Comparing to Other Languages</h3>
+
+<p>
+Synery is most similar to SQL. But Synery is not just a query language. In much cases it behaves different than SQL. For example in Synary it is possible to define and use functions directly inside of a code file. There is no need to store the functions first as some kind of a database object.
+</p>
+
+<p>An example:<p>
+
+<textarea class="editor" data-editor="synery">
+// declare a function
+BOOL IsValueGreaterThanFife(INT value)
+    IF value > 5
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END
+END
+
+// call the function
+BOOL result = IsValueGreaterThanFife(7);    // result is TRUE
+</textarea>
