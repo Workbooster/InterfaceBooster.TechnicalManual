@@ -6,13 +6,14 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Alike', serif; font-weight: 400; }
 h2 { margin-top: 8px; color: #006699; }
 h3 { color: #0099CC; }
 code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
+a { color: #428bca; text-decoration: none; }
+a:hover, a:focus { color: #2a6496; text-decoration: underline; }
 #page { max-width: 95%; margin: 0px auto; }
 #header { clear: both; }
-#navig { font-size: 0.9em; }
+#navig { font-size: 0.95em; }
 #navig ul { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; list-style: none; }
 #navig li { margin: 2px 0px 0px 0px; }
 #navig ul li ul { padding: 0px 0px 0px 16px; }
-#navig a { text-decoration: none; }
 #content { }
 
 .page-container {
