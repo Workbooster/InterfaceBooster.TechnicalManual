@@ -32,10 +32,10 @@ This document is licensed under the terms of the GNU Free Documentation License.
 
 ## Contacts
 
-Workbooster GmbH
-Pfarrain 3a
-8604 Volketswil
+Workbooster GmbH<br/>
+Pfarrain 3a<br/>
+8604 Volketswil<br/>
 
-Web: www.workbooster.ch
-E-Mail: info@workbooster.ch
-Phone: +41 (0)44 515 48 80
+Web: www.workbooster.ch<br/>
+E-Mail: info@workbooster.ch<br/>
+Phone: +41 (0)44 515 48 80<br/>
