@@ -1,5 +1,10 @@
-body { font-family: sans-serif; background-color: #e6f5fc; overflow-y: scroll; }
-h2 { margin-top: 8px; }
+@import url(http://fonts.googleapis.com/css?family=Alike);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700);
+
+body { font-family: 'Open Sans', sans-serif; font-size: 0.85em; font-weight: 400; background-color: #e6f5fc; overflow-y: scroll; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Alike', serif; font-weight: 400; }
+h2 { margin-top: 8px; color: #006699; }
+h3 { color: #0099CC; }
 code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
 #page { max-width: 95%; margin: 0px auto; }
 #header { clear: both; }
@@ -12,7 +17,7 @@ code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
 
 .page-container {
     margin: 12px 0px 0px 0px; padding: 16px 16px 16px 24px; 
-    background-color: #FFF; border: 1px solid; border: 1px solid #DDD; border-radius: 16px; -moz-border-radius: 16px; 
+    background-color: #FFF; border: 1px solid #DDD; border-radius: 16px; -moz-border-radius: 16px; 
     -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
     -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
     box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
@@ -27,4 +32,30 @@ code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
     -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
     -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
     box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+}
+
+.label {
+    margin: 0px 0px 0px 12px; padding: 2px 12px 2px 12px; 
+    color: #FFFFFF; text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400;
+    background-color: #777777; border-radius: 4px; -moz-border-radius: 4px;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+}
+
+.label-primary{
+    background-color: #428bca;
+}
+.label-success {
+    background-color: #5cb85c;
+}
+.label-info {
+    background-color: #5bc0de;
+}
+.label-warning {
+    background-color: #f0ad4e;
+}
+.label-danger {
+    background-color: #d9534f;
 }
