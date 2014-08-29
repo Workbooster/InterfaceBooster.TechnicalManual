@@ -51,19 +51,19 @@ OBSERVE
 // The HANDLE-blocks have to stay at the end of an OBSERVE-block.
 // They are executed in the order they are written (from top to bottom).
 
-HANDLE(#.Exception evt)
-    // handles all events, event the exception
-    IF evt.IsHandled == FALSE
+HANDLE(#.Exception ex)
+    // handles all Exceptions.
+    IF ex.IsHandled == FALSE
         
-        // do something whether the event wasn't already handled
+        // Do something if the Exception wasn't already handled.
         
     END
 
 HANDLE(#.Event evt)
-    // handles all events, event the exception
+    // Handles all Events, even the Exceptions because they are derived from the Event record type.
     IF evt.IsHandled == FALSE
         
-        // do something whether the event wasn't already handled
+        // Do something if the Event wasn't already handled.
         
     END
 END // the end of the observe block
