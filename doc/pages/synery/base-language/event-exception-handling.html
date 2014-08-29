@@ -1,0 +1,74 @@
+
+<h2>Event/Exception Handling <span class="label label-warning">Incomplete</span> <span class="label label-danger">Experimental</span></h2>
+
+<p>
+Synery combines the concepts of event-handling and exceptions. The developer can specify whether his event breaks the current code-block (like in languages that work with <code>try-catch</code> and <code>throw new Exception()</code>) or just broadcasts an event-message upwards and after that continues with the current code block. This means that in Snyery an Exception also is an Event.
+</p>
+
+<p>
+Both, Exceptions and Events basically are record types that are given by the system. Their signature looks like this:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#.Event(STRING Message, BOOL IsHandled);
+#.Exception() : #.Event;
+</textarea>
+
+<p>
+It is also possible to use those types as base type and create a derived Exception or Event record type.
+</p>
+
+<p>
+To trigger an event there are two commands: <code>EMIT</code> and <code>THROW</code>. For catching an Event you have to create an <code>OBSERVE</code> block and register some listeners by using the <code>HANDLE</code> command.
+</p>
+
+<p>
+While <code>EMIT</code> only broadcasts the event upwards, the <code>THROW</code> command breaks the current <code>OBSERVE</code> block.
+</p>
+
+<p>
+Here you see a shor example that explains the behaviour:
+</p>
+
+<textarea class="editor" data-editor="synery">
+OBSERVE
+
+    // ... some code ...
+    
+    // Create an Event and emit it.
+    // The code execution continues at this position after all Event Handlers have been called
+    EMIT #.Event("Something happened");
+    
+    // ... some code ...
+    
+    // Create an Exception and throw it.
+    // The code execution continues at the end of the surrounding OBSERVE-block.
+    THROW #.Exception("An error occured");
+    
+    // ... some code (wont be executed because THROW breaks the surrounding OBSERVE block).
+   
+
+// The HANDLE-blocks have to stay at the end of an OBSERVE-block.
+// They are executed in the order they are written (from top to bottom).
+
+HANDLE(#.Exception evt)
+    // handles all events, event the exception
+    IF evt.IsHandled == FALSE
+        
+        // do something whether the event wasn't already handled
+        
+    END
+
+HANDLE(#.Event evt)
+    // handles all events, event the exception
+    IF evt.IsHandled == FALSE
+        
+        // do something whether the event wasn't already handled
+        
+    END
+END // the end of the observe block
+</textarea>
+
+<p>
+Each Event by default has two fields: "Message" and "IsHandled". If an Event has passed the first <code>HANDLE</code> block the "IsHandled"-flag is automatically set to TRUE. This is useful if you plan to log event messages to prevent logging the same message multiple times.
+</p>
