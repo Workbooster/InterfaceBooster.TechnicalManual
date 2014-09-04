@@ -5,58 +5,7 @@ body { font-family: 'Open Sans', sans-serif; font-size: 0.85em; font-weight: 400
 h1, h2, h3, h4, h5, h6 { font-family: 'Alike', serif; font-weight: 400; }
 h2 { margin-top: 8px; color: #006699; }
 h3 { color: #0099CC; }
-code { border: 1px solid #ECECEC; background-color: #FAFAFA; }
+code { border: 1px solid #ECECEC; background-color: #FAFAFA; font-size: 1.1em; }
+dt { font-weight: 700; }
 a { color: #428bca; text-decoration: none; }
 a:hover, a:focus { color: #2a6496; text-decoration: underline; }
-#page { max-width: 95%; margin: 0px auto; }
-#header { clear: both; }
-#navig { font-size: 0.95em; }
-#navig ul { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; list-style: none; }
-#navig li { margin: 2px 0px 0px 0px; }
-#navig ul li ul { padding: 0px 0px 0px 16px; }
-#content { }
-
-.page-container {
-    margin: 12px 0px 0px 0px; padding: 16px 16px 16px 24px; 
-    background-color: #FFF; border: 1px solid #DDD; border-radius: 16px; -moz-border-radius: 16px; 
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
-}
-.editor { 
-    margin: 24px 0px 24px 0px; width: 95%;
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
-}
-.imagelink  img {
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-}
-
-.label {
-    margin: 0px 0px 0px 12px; padding: 2px 12px 2px 12px; 
-    color: #FFFFFF; text-transform: uppercase;
-    font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400;
-    background-color: #777777; border-radius: 4px; -moz-border-radius: 4px;
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
-}
-
-.label-primary{
-    background-color: #428bca;
-}
-.label-success {
-    background-color: #5cb85c;
-}
-.label-info {
-    background-color: #5bc0de;
-}
-.label-warning {
-    background-color: #f0ad4e;
-}
-.label-danger {
-    background-color: #d9534f;
-}

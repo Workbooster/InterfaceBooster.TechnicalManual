@@ -1,1 +1,11 @@
 #navig { visibility: hidden; display: none; }
+
+.label {
+    margin: 0px 0px 0px 12px; padding: 2px 12px 2px 12px; 
+    color: #5bc0de; text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400;
+    background-color: #FFFFFF; border-radius: 4px; -moz-border-radius: 4px;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+}
