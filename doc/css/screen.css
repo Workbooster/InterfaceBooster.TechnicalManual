@@ -16,6 +16,18 @@ dl.definition > dd {
     box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
 }
 
+table.data {
+    font-size: 0.9em;
+    border-collapse: collapse;
+    margin: 24px 0px 24px 0px; width: 95%;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); 
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
+}
+table.data th, td { border: 1px solid #ECECEC; padding: 4px 12px 4px 12px; }
+table.data thead { background-color: #FAFAFA; text-align: left; }
+table.data thead tr:first-child { background-color: #f0f0f0; font-size: 1.1em; }
+
 .page-container {
     margin: 12px 0px 0px 0px; padding: 16px 16px 16px 24px; 
     background-color: #FFF; border: 1px solid #DDD; border-radius: 16px; -moz-border-radius: 16px; 
