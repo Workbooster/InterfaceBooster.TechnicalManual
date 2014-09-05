@@ -1,5 +1,5 @@
 
-<h2>Variables</h2>
+<h2>Variables <span class="label label-success">reviewed</span></h2>
 
 <p>
 Every variable in Synery has its type. This can be a <a href="#/synery/base-language/primitive-types">primitve data type</a> or a <a href="#/synery/base-language/record-types">record type</a>. Once a variable is declared its type cannot be changed. Synery is so-called <a href="http://en.wikipedia.org/wiki/Type_safety" target="_blank">"type safe"</a>.
@@ -8,7 +8,7 @@ Every variable in Synery has its type. This can be a <a href="#/synery/base-lang
 <h3>Declaring a Variable</h3>
 
 <p>
-A Variable is declared by defining a type and a name:
+A variable is declared by defining a type and a name:
 </p>
 
 <textarea class="editor" data-editor="synery">
@@ -20,6 +20,28 @@ INT aNumber;
 <p>
 At this time the variable isn't initialized with a value yet. Its current value is NULL.
 </p>
+
+<p>
+The variable name must start with a letter or an underscore <code>_</code>.
+</p>
+
+<p>
+A few examples for possible variable names:
+</p>
+<ul>
+    <li>myVariable01</li>
+    <li>MyVariable01</li>
+    <li>_my3Mixed524Variable</li>
+</ul>
+
+<p>
+A few examples for <b>invalid</b> variable names:
+</p>
+<ul>
+    <li>1variable</li>
+    <li>+my-variable</li>
+    <li>variable+With-Special/\Chars$</li>
+</ul>
 
 <h3>Initializing a Variable</h3>
 
