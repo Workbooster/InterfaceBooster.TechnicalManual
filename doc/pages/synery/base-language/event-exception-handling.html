@@ -112,10 +112,122 @@ HANDLE(#PersonAdded evt)
 END
 </textarea>
 
+<h3>System Events</h3>
+
+<p>
+Interface Booster can emit several system events. Here you find a list of these events:
+</p>
+
+<dl class="definition">
+    <dt>ProviderPluginResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.ProviderPluginResponseEvent(STRING ProviderPluginId, STRING ProviderPluginName, STRING ProviderPluginIdentifier, STRING ProviderPluginInstanceId, STRING ProviderPluginInstanceName) : #.Event</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has processed a record set of request. For example if you during a READ request ask for 3 record sets this event is emitted 3 times each after a record set has been loaded.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING ProviderPluginId<br/><i>The GUID of the plugin.</i></li>
+                <li>STRING ProviderPluginName<br/><i>The name of the plugin.</i></li>
+                <li>STRING ProviderPluginIdentifier<br/><i>The synery identifier of the plugin.</i></li>
+                <li>STRING ProviderPluginInstanceId<br/><i>The GUID of the plugin instance.</i></li>
+                <li>STRING ProviderPluginInstanceName<br/><i>The name of the plugin instance.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>ReadResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.ReadResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has read a table / set of records. For example if you during a READ request ask for 3 record sets this event is emitted 3 times each after a record set has been loaded.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were loaded during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>CreateResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.CreateResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has created the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were created during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>UpdateResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.UpdateResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has updated the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were updated during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>DeleteResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.DeleteResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has deleted the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were deleted during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+</dl>
+
 <h3>System Exceptions</h3>
 
 <p>
-Interface Booster can throw several system exceptions. Here you find a list these exceptions:
+Interface Booster can throw several types of system exceptions. Here you find a list of these exceptions:
 </p>
 
 <dl class="definition">
@@ -129,11 +241,15 @@ Interface Booster can throw several system exceptions. Here you find a list thes
             <dt>Description:</dt>
             <dd>Contains an error detected by the Synery Interpreter.</dd>
         </dl>
-    </dd>
-    
-    <dt>#.InterpretationException(INT Line, INT CharPosition) : #.Exception</dt>
-    <dd>
-        An error detected by the Synery Interpreter.
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>INT Line<br/><i>The line number where the first problem occurs.</i></li>
+                <li>INT CharPosition<br/><i>The position from left at the first line where the first problem occurs.</i></li>
+            </ul>
+            </dd>
+        </dl>
     </dd>
 </dl>
 
