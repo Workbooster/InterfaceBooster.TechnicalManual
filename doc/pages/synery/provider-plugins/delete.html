@@ -1,0 +1,60 @@
+
+<h2>Delete <span class="label label-warning">draft</span></h2>
+
+<p>
+The DELETE-Command is used to export modified data to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
+</p>
+
+<h3>The DELETE-Command</h3>
+
+<p>
+A DELETE-command always uses this pattern:<br />
+<b><code class="block">DELETE [endpoint_path] (FROM [table_identifier])? <br />{SET-Command}? {FILTER-Command}? {Another-Command}* END</code></b>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>DELETE [endpoint_path]</dt>
+    <dd>
+        <em>Required.</em>
+        A path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+    </dd>
+    <dt>FROM [table_identifier]</dt>
+    <dd>
+        <em>Optional.</em>
+        If the resource demands a schema then the FROM-argument has to specify the path of a local table that matches the declared schema. This means that the given table at least must contain all required (non-nullable) fields.
+    </dd>
+    <dt>{SET-Command}?</dt>
+    <dd>
+        <em>Optional.</em>
+        A SET-command containing some parameters.
+    </dd>
+    <dt>{FILTER-Command}?</dt>
+    <dd>
+        The FILTER-Argument is used to specify a filter for reducing the amount of records that are deleted. Only records in the foreign system or file that match the given filter criteria are removed.
+    </dd>
+    <dt>{Another-Command}*</dt>
+    <dd>
+        <em>Optional.</em>
+        Some nested commands.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see three examples of how an delete operation could be performed:
+</p>
+
+<textarea class="editor" data-editor="synery">
+DELETE \\csvConnection\Data FROM \toDelete\positions END
+
+DELETE \\erp\staff\employments
+    SET (RemovePermanently = TRUE)
+    FILTER (DateOfLeaving < DATETIME(2014,1,1))
+    READ employments TO \remaining\employments  FIELDS (Id, IfStaffMember, Workload) END
+END
+</textarea>

@@ -1,0 +1,56 @@
+
+<h2>Execute <span class="label label-warning">draft</span></h2>
+
+<p>
+The EXECUTE-Command is used to export modified data to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
+</p>
+
+<h3>The EXECUTE-Command</h3>
+
+<p>
+A EXECUTE-command always uses this pattern:<br />
+<b><code class="block">EXECUTE [endpoint_path] {SET-Command}? {GET-Command}? {Another-Command}* END</code></b>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>EXECUTE [endpoint_path]</dt>
+    <dd>
+        <em>Required.</em>
+        A path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+    </dd>
+    <dt>{SET-Command}?</dt>
+    <dd>
+        <em>Optional.</em>
+        A SET-command containing some parameters.
+    </dd>
+    <dt>{GET-Command}?</dt>
+    <dd>
+        A GET-command requesting for some values to be returned.
+    </dd>
+    <dt>{Another-Command}*</dt>
+    <dd>
+        <em>Optional.</em>
+        Some nested commands.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see three examples of how an export could be performed:
+</p>
+
+<textarea class="editor" data-editor="synery">
+EXECUTE \\webshop\ClearCache END
+
+INT IdArticle;
+EXECUTE \\erp\IncerementCounter SET (EntityName = "Article") GET (NextId AS IdArticle) END
+
+EXECUTE \\erp\RefreshStock
+    READ ArticleStock TO \current\ArticleStock  FIELDS (Id, TotalAmount) END
+END
+</textarea>

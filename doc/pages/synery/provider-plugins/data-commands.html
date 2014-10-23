@@ -1,5 +1,5 @@
 
-<h2>Import/Export Commands <span class="label label-warning">draft</span></h2>
+<h2>Data Commands <span class="label label-warning">draft</span></h2>
 
 <p>
 Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). These commands are used to perform requests on a provider plugin.
@@ -99,7 +99,7 @@ As you can see in the example above each command-block can take some nested comm
     </dd>
     <dt>FIELDS ( [field_name] , ... )</dt>
     <dd>
-        The FIELDS-Argument specifies a list of columns to import. For example in a READ-command maybe not all columns of a provided table are needed.
+        The FIELDS-Argument specifies a list of columns to import. For example in a READ-command maybe not all columns of a provided table are needed. Then you can specify a list of fields that should be imported.
     </dd>
     <dt>FILTER ( [field_name] [operator] [expression], ... )</dt>
     <dd>
@@ -121,6 +121,7 @@ The fallowing statement illustrates how reading two tables from an XML file coul
 
 <textarea class="editor" data-editor="synery">
 READ \\xml\Addresses TO \imported\Addresses
+    SET (IgnoreArchived = TRUE)
     FILTER (createdAt > DATETIME(2014, 9, 30) AND export == TRUE)
     FIELDS (Id, Street, ZipCode, City)
     READ Contacts TO \imported\Contacts

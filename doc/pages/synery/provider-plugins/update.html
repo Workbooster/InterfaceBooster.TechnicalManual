@@ -1,0 +1,65 @@
+
+<h2>Update <span class="label label-warning">draft</span></h2>
+
+<p>
+The UPDATE-Command is used to export modified data to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
+</p>
+
+<h3>The UPDATE-Command</h3>
+
+<p>
+A UPDATE-command always uses this pattern:<br />
+<b><code class="block">UPDATE [endpoint_path] (FROM [table_identifier])? <br />{SET-Command}? {FILTER-Command}? {Another-Command}* END</code></b>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>UPDATE [endpoint_path]</dt>
+    <dd>
+        <em>Required.</em>
+        A path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+    </dd>
+    <dt>FROM [table_identifier]</dt>
+    <dd>
+        <em>Optional.</em>
+        If the resource demands a schema then the FROM-argument has to specify the path of a local table that matches the declared schema. This means that the given table at least must contain all required (non-nullable) fields.
+    </dd>
+    <dt>{SET-Command}?</dt>
+    <dd>
+        <em>Optional.</em>
+        A SET-command containing some parameters.
+    </dd>
+    <dt>{FILTER-Command}?</dt>
+    <dd>
+        The FILTER-Argument is used to specify a filter for reducing the amount of records that are modified. Only records in the foreign system or file that match the given filter criteria are updated.
+    </dd>
+    <dt>{Another-Command}*</dt>
+    <dd>
+        <em>Optional.</em>
+        Some nested commands.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see three examples of how an export could be performed:
+</p>
+
+<textarea class="editor" data-editor="synery">
+UPDATE \\csvConnection\Data FROM \new\positions END
+
+UPDATE \\erp\staff\employments
+    SET (IsActive = FALSE)
+    FILTER (DateOfLeaving < DATETIME(2014,1,1))
+END
+
+UPDATE \\erp\API\Orders FROM \modified\Orders
+    SET (UpdateBasket = TRUE)
+    UPDATE Positions FROM \modified\Positions END
+    READ Orders TO \updated\Orders  FIELDS (Id, TotalAmount) END
+END
+</textarea>
