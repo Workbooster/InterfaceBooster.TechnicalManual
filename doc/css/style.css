@@ -5,7 +5,9 @@ body { font-family: 'Open Sans', sans-serif; font-size: 0.85em; font-weight: 400
 h1, h2, h3, h4, h5, h6 { font-family: 'Alike', serif; font-weight: 400; }
 h2 { margin-top: 8px; color: #006699; }
 h3 { color: #0099CC; }
-code { border: 1px solid #ECECEC; background-color: #FAFAFA; font-size: 1.1em; }
+code { border: 1px solid #ECECEC; background-color: #FAFAFA; font-size: 1.2em; }
 dt { font-weight: 700; }
 a { color: #428bca; text-decoration: none; }
 a:hover, a:focus { color: #2a6496; text-decoration: underline; }
+
+code.block { display: block; padding: 2px; }
