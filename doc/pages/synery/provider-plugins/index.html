@@ -1,0 +1,70 @@
+
+<h2>Provider Plugins <span class="label label-warning">draft</span></h2>
+
+<p>
+Provider Plugins allow Synery developers to easily exchange data with a foreign system or a file by using some commands. These plugins offer you a standardized way to import and export data from and to the Interface Booster environment.
+</p>
+
+<p>
+The usual way you work with data in Interface Booster:
+</p>
+
+<ol>
+    <li>Connect to some foreign systems and/or files.</li>
+    <li>Import some data (usually into some tables).</li>
+    <li>Modify the data (filter, group, join etc.).</li>
+    <li>Export the data.</li>
+</ol>
+
+<p>
+The Provider Plugins help you to create a connection to the external data source, provide some endpoints to load data from and offer some endpoints to send data to.
+</p>
+
+<h3>Terms</h3>
+
+<p>
+The following terms are used in connection with Provider Plugins.
+<p>
+
+<dl class="definition">
+    <dt>Provider Plugin</dt>
+    <dd>
+        A Provider Plugin is a DLL assembly that extends the Interface Booster. It may provide access to a foreign system like a database, an ERP-System, a Web Service or either a specific file format like XML, CSV etc.
+    </dd>
+    <dt>Connection</dt>
+    <dd>
+        Before you can start to exchange data with an external data source you have to open a connection. For example if you'd like to work with a database you may have to specify a server, a user-name and a password. Or for example if you'd like to read or write a file you may have to set a file-path.
+    </dd>
+    <dt>Command</dt>
+    <dd>
+        There are a lot of commands in Synery. But in this context usually the import/export commands are meant. <br />
+        Synery supports <a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">CRUD</a>(E) commands:
+        <ul>
+            <li><b>C</b>REATE</li>
+            <li><b>R</b>EAD</li>
+            <li><b>U</b>PDATE</li>
+            <li><b>D</b>ELETE</li>
+            <li><b>E</b>XECUTE</li>
+        </ul>
+    </dd>
+    <dt>Endpoint</dt>
+    <dd>
+        In every import/export command (READ, CREATE etc.) you have to specify an endpoint you would like to exchange data with. Each endpoint has one primary resource that specifies what arguments can be used in the command.
+    </dd>
+    <dt>Resource</dt>
+    <dd>
+        A resource specifies the arguments that can be used in a command. Possible arguments are:
+        <ul>
+            <li>a schema</li>
+            <li>some parameters</li>
+            <li>some filter-parameters</li>
+            <li>some fields</li>
+            <li>some get-values</li>
+            <li>some nested resources</li>
+        </ul>
+    </dd>
+    <dt>Request</dt>
+    <dd>
+        If a command is executed and some arguments are sent to an endpoint provided by a provider plugin connection this is called a "request".
+    </dd>
+</dl>

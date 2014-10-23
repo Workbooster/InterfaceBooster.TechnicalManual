@@ -1,0 +1,63 @@
+
+<h2>Connect <span class="label label-warning">draft</span></h2>
+
+<p>
+The Connect-Command is used to create a connection to a foreign system or a file by using a provider plugin. A connection is required to perform import and export commands.
+</p>
+
+<h3>The Command</h3>
+
+<p>
+A connect-command always uses this pattern:<br />
+<b><code>CONNECT "[provider_plugin_instance_name]" ( [parameters] )? AS [connection_identifier] ;</code></b>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>[provider_plugin_instance_name]</dt>
+    <dd>
+        The <code>syneryIdentifier</code> of the plugin instance specified in the <a href="#/interfacebooster/interface-definition">Interface Definition</a>.
+    </dd>
+    <dt>( [parameters] )?</dt>
+    <dd>
+        A comma-separated key-value list of parameters which can/must be used to configure the connection.
+    </dd>
+    <dt>connection_ identifier</dt>
+    <dd>
+        An external identifier starting with two backslashes <code>\\</code>. An example: <code>\\myCategory\someConnection</code>.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see two examples of how a connection could be created:
+</p>
+
+<textarea class="editor" data-editor="synery">
+CONNECT "CSV 1.0" ( File.Path = @"D:\temp\artikel.csv", Parser.Separator = ";" ) AS \\csvConnection;
+
+CONNECT "MS SQL 2012" ( 
+	Connection.DataSource = "(local)\SQLDEVELOP", 
+	Connection.Port = 1433,
+	Connection.User = "dev", 
+	Connection.Password = "123", 
+	Connection.Name = "PX000000" 
+) AS \\sqlConnection;
+</textarea>
+
+<p>
+In the first command you see an example statement for creating a connection to a CSV file by using a provider plugin instance with the name "CSV 1.0". Two parameters are used for opening the connection. The connection is identified by the name <code>\\csvConnection</code>. This name can later be used to perform import and export commands.
+</p>
+
+<p>
+The second command looks quite the same as the first one but it opens a connection to a SQL Server. It uses a provider plugin instance called "MS SQL 2012" and stores the connection in <code>\\sqlConnection</code>.
+</p>
+
+<p>
+As you can see the two commands addresses totally different targets but look quite the same.
+</p>
+

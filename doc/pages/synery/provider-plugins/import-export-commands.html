@@ -1,0 +1,130 @@
+
+<h2>Import/Export Commands <span class="label label-warning">draft</span></h2>
+
+<p>
+Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). These commands are used to perform requests on a provider plugin.
+</p>
+
+<p>
+A simple single-line command could look like this:
+</p>
+
+<textarea class="editor" data-editor="synery">
+READ \\erp\API\People TO \imported\people END
+</textarea>
+
+<p>
+But these commands are written as blocks closed by an <code>END</code> keyword. That's because they can be nested too. An example:
+</p>
+
+<textarea class="editor" data-editor="synery">
+CREATE \\erp\API\Companies FROM \new\Companies
+    SET (UpdateExistingOrders = TRUE, CreateAsUserId = 12)
+    CREATE ContactPersons FROM \new\ContactPersons END
+    CREATE Addresses FROM \new\Addresses END
+    READ Companies TO \created\Companies  FIELDS (Id, ExternalId, Name) SET (OnlyCreated = TRUE) END
+END
+</textarea>
+
+<p>
+This commands export three tables. A Table with companies, one with contact persons and one with addresses. The outer CREATE-command sets two parameters "UpdateExistingOrders" and "CreateAsUserId". Additionally a nested READ-command imports back a table containing the companies that have been created in the same statement. The nested READ-command specifies that only three fields should be returned and sets a parameter "OnlyCreated".
+</p>
+
+<h3>Command Arguments</h3>
+
+<p>
+As you can see in the example above each command-block can take some nested commands and some additional arguments starting with keywords like <code>SET</code> or <code>FIELDS</code>. But not all command-blocks can take the same arguments. Here you find an overview which command supports which nested elements:
+<p>
+
+<ul>
+    <li>CREATE
+        <ul>
+            <li>FROM</li>
+            <li>SET</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+    <li>READ
+        <ul>
+            <li>TO</li>
+            <li>SET</li>
+            <li>FIELDS</li>
+            <li>FILTER</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+    <li>UPDATE
+        <ul>
+            <li>FROM</li>
+            <li>SET</li>
+            <li>FILTER</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+    <li>DELETE
+        <ul>
+            <li>FROM</li>
+            <li>SET</li>
+            <li>FILTER</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+    <li>EXECUTE
+        <ul>
+            <li>SET</li>
+            <li>GET</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Argument Descriptions</h3>
+
+<dl class="definition">
+    <dt>FROM [source_table]</dt>
+    <dd>
+        The FROM-argument is used if there are some data that should be taken from a local table. For example in a CREATE-command the FROM-argument specifies where the data should come from which should be exported.
+    </dd>
+    <dt>TO [destination_table]</dt>
+    <dd>
+        The opposite of the FROM-argument. The TO-argument specifies where the imported data should be stored. The <code>[destination_table]</code> can also be the name of a new table that currently doesn't exists.
+    </dd>
+    <dt>SET ( [parameter_name] = [expression] , ... )</dt>
+    <dd>
+        The SET-argument is used to specify some parameters that should be passed with the request.
+    </dd>
+    <dt>GET ( [value_name] = [local_variable_name] , ... )</dt>
+    <dd>
+        The opposite of the SET-argument. The GET-argument specifies some values that are requested from the provider plugin.
+    </dd>
+    <dt>FIELDS ( [field_name] , ... )</dt>
+    <dd>
+        The FIELDS-Argument specifies a list of columns to import. For example in a READ-command maybe not all columns of a provided table are needed.
+    </dd>
+    <dt>FILTER ( [field_name] [operator] [expression], ... )</dt>
+    <dd>
+        The FILTER-Argument is used to specify a filter for reducing the amount of data that are affected by the current command. For example in a READ-command only records that match the given filter criteria are loaded. Or in a DELETE-command only the matching records are deleted.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you find a few examples of commands:
+</p>
+
+<strong>Nested Reading</strong>
+
+<p>
+The fallowing statement illustrates how reading two tables from an XML file could look like:
+</p>
+
+<textarea class="editor" data-editor="synery">
+READ \\xml\Addresses TO \imported\Addresses
+    FILTER (createdAt > DATETIME(2014, 9, 30) AND export == TRUE)
+    FIELDS (Id, Street, ZipCode, City)
+    READ Contacts TO \imported\Contacts
+        FILTER (IsVacationAddress == FALSE)
+    END
+END
+</textarea>
