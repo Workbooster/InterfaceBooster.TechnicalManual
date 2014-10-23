@@ -68,7 +68,7 @@ define('ace/mode/synery_highlight_rules', ['require', 'exports', 'module', 'ace/
     var SyneryHighlightRules = function () {
 
         var keywordControls = (
-            "CONNECT|IMPORT|EXPORT|READ|FROM|TO|LEFT|JOIN|COMPARE|SELECT|WHERE|DISTINCT|BEGIN|END|IF|ELSE|THEN|AS|ORDER|BY|RETURN|OBSERVE|HANDLE|EMIT|THROW"
+            "CONNECT|IMPORT|EXPORT|READ|FROM|TO|LEFT|JOIN|COMPARE|SELECT|WHERE|DISTINCT|BEGIN|END|IF|ELSE|THEN|AS|ORDER|BY|RETURN|OBSERVE|HANDLE|EMIT|THROW|SET|GET|FIELDS|FILTER"
         );
 
         var storageType = (
@@ -76,7 +76,7 @@ define('ace/mode/synery_highlight_rules', ['require', 'exports', 'module', 'ace/
         );
 
         var storageModifiers = (
-            "CREATE|UPDATE|DELETE"
+            "CREATE|READ|UPDATE|DELETE|EXECUTE"
         );
 
         var keywordOperators = (
