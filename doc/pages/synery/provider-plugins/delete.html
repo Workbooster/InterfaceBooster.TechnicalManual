@@ -9,7 +9,13 @@ The DELETE-Command is used to export modified data to a foreign system or a file
 
 <p>
 A DELETE-command always uses this pattern:<br />
-<b><code class="block">DELETE [endpoint_path] (FROM [table_identifier])? <br />{SET-Command}? {FILTER-Command}? {Another-Command}* END</code></b>
+<b><code class="block">
+DELETE [endpoint_path] FROM [table_identifier] <br />
+SET ( [parameter_name] = [expression] , ... ) <br />
+FILTER ( [field_name] [operator] [expression] ... ) <br />
+{Nested Commands} <br />
+END
+</code></b>
 </p>
 
 <p>
@@ -20,23 +26,23 @@ Description:
     <dt>DELETE [endpoint_path]</dt>
     <dd>
         <em>Required.</em>
-        A path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+        Takes a path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
     </dd>
     <dt>FROM [table_identifier]</dt>
     <dd>
         <em>Optional.</em>
         If the resource demands a schema then the FROM-argument has to specify the path of a local table that matches the declared schema. This means that the given table at least must contain all required (non-nullable) fields.
     </dd>
-    <dt>{SET-Command}?</dt>
+    <dt>SET ( [parameter_name] = [expression] , ... )</dt>
     <dd>
         <em>Optional.</em>
-        A SET-command containing some parameters.
+        The SET-argument is used to specify a comma-separated key-value parameters list. These parameters are passed to the provider plugin within the request.
     </dd>
-    <dt>{FILTER-Command}?</dt>
+    <dt>FILTER ( [field_name] [operator] [expression] ... )</dt>
     <dd>
         The FILTER-Argument is used to specify a filter for reducing the amount of records that are deleted. Only records in the foreign system or file that match the given filter criteria are removed.
     </dd>
-    <dt>{Another-Command}*</dt>
+    <dt>{Nested Commands}</dt>
     <dd>
         <em>Optional.</em>
         Some nested commands.

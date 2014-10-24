@@ -9,7 +9,12 @@ The Connect-Command is used to create a connection to a foreign system or a file
 
 <p>
 A connect-command always uses this pattern:<br />
-<b><code>CONNECT "[provider_plugin_instance_name]" ( [parameters] )? AS [connection_identifier] ;</code></b>
+<b><code class="block">
+CONNECT "[provider_plugin_instance_name]" <br />
+AS [connection_identifier] <br />
+SET ( [parameter_name] = [expression] , ... ) <br />
+END
+</code></b>
 </p>
 
 <p>
@@ -17,17 +22,20 @@ Description:
 </p>
 
 <dl class="definition">
-    <dt>[provider_plugin_instance_name]</dt>
+    <dt>CONNECT "[provider_plugin_instance_name]"</dt>
     <dd>
-        The <code>syneryIdentifier</code> of the plugin instance specified in the <a href="#/interfacebooster/interface-definition">Interface Definition</a>.
+        <em>Required.</em>
+        Takes the <code>syneryIdentifier</code> of the plugin instance specified in the <a href="#/interfacebooster/interface-definition">Interface Definition</a>.
     </dd>
-    <dt>( [parameters] )?</dt>
+    <dt>AS [connection_identifier]</dt>
     <dd>
-        A comma-separated key-value list of parameters which can/must be used to configure the connection.
+        <em>Required.</em>
+        Takes the external identifier starting with two backslashes <code>\\</code>. An example: <code>\\myCategory\someConnection</code>.
     </dd>
-    <dt>connection_ identifier</dt>
+    <dt>SET ( [parameter_name] = [expression] , ... )</dt>
     <dd>
-        An external identifier starting with two backslashes <code>\\</code>. An example: <code>\\myCategory\someConnection</code>.
+        <em>Optional.</em>
+        The SET-argument is used to specify a comma-separated key-value parameters list that can/must be used to configure the connection.
     </dd>
 </dl>
 
@@ -38,19 +46,24 @@ Here you see two examples of how a connection could be created:
 </p>
 
 <textarea class="editor" data-editor="synery">
-CONNECT "CSV 1.0" ( File.Path = @"D:\temp\artikel.csv", Parser.Separator = ";" ) AS \\csvConnection;
+CONNECT "CSV 1.0" 
+    AS \\csvConnection 
+    SET ( File.Path = @"D:\temp\artikel.csv", Parser.Separator = ";" ) 
+END
 
-CONNECT "MS SQL 2012" ( 
-	Connection.DataSource = "(local)\SQLDEVELOP", 
+CONNECT "MS SQL 2012" 
+    AS \\sqlConnection
+    SET ( 
+	Connection.DataSource = @"(local)\SQLDEVELOP", 
 	Connection.Port = 1433,
 	Connection.User = "dev", 
 	Connection.Password = "123", 
-	Connection.Name = "PX000000" 
-) AS \\sqlConnection;
+	Connection.Name = "PX000000" )
+END
 </textarea>
 
 <p>
-In the first command you see an example statement for creating a connection to a CSV file by using a provider plugin instance with the name "CSV 1.0". Two parameters are used for opening the connection. The connection is identified by the name <code>\\csvConnection</code>. This name can later be used to perform import and export commands.
+In the first command you see an example statement for creating a connection to a CSV file by using a provider plugin instance with the name "CSV 1.0". The connection is inetrnally identified by the name <code>\\csvConnection</code>. This name can later be used to perform import and export commands. Two parameters are used for opening the connection.
 </p>
 
 <p>

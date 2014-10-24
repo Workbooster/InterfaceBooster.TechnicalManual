@@ -91,9 +91,9 @@ As you can see in the example above each command-block can take some nested comm
     </dd>
     <dt>SET ( [parameter_name] = [expression] , ... )</dt>
     <dd>
-        The SET-argument is used to specify some parameters that should be passed with the request.
+        The SET-argument is used to specify a comma-separated key-value parameters list. These parameters are passed to the provider plugin within the request.
     </dd>
-    <dt>GET ( [value_name] = [local_variable_name] , ... )</dt>
+    <dt>GET ( [value_name] AS [local_variable_name] , ... )</dt>
     <dd>
         The opposite of the SET-argument. The GET-argument specifies some values that are requested from the provider plugin.
     </dd>
@@ -101,7 +101,7 @@ As you can see in the example above each command-block can take some nested comm
     <dd>
         The FIELDS-Argument specifies a list of columns to import. For example in a READ-command maybe not all columns of a provided table are needed. Then you can specify a list of fields that should be imported.
     </dd>
-    <dt>FILTER ( [field_name] [operator] [expression], ... )</dt>
+    <dt>FILTER ( [field_name] [operator] [expression] ... )</dt>
     <dd>
         The FILTER-Argument is used to specify a filter for reducing the amount of data that are affected by the current command. For example in a READ-command only records that match the given filter criteria are loaded. Or in a DELETE-command only the matching records are deleted.
     </dd>

@@ -9,7 +9,13 @@ The READ-Command is used to import data from a foreign system or a file by using
 
 <p>
 A READ-command always uses this pattern:<br />
-<b><code class="block">READ [endpoint_path] (TO [table_identifier])? <br />{SET-Command}? {FIELDS-Command}? {FILTER-Command}? {Another-Command}* END</code></b>
+<b><code class="block">
+READ [endpoint_path] TO [table_identifier] <br />
+SET ( [parameter_name] = [expression] , ... ) <br />
+FIELDS ( [field_name] , ... ) <br />
+FILTER ( [field_name] [operator] [expression] ... ) <br />
+{Nested Commands} </br>
+END</code></b>
 </p>
 
 <p>
@@ -27,21 +33,21 @@ Description:
         <em>Optional.</em>
         If the resource provides a schema then the TO-argument has to specify the path to a local table. The imported data are stored in the specified local table. If the table doesn't exists it will be created. Otherwise it will be overwritten.
     </dd>
-    <dt>{SET-Command}?</dt>
+    <dt>SET ( [parameter_name] = [expression] , ... )</dt>
     <dd>
         <em>Optional.</em>
-        A SET-command containing some parameters.
+        The SET-argument is used to specify a comma-separated key-value parameters list. These parameters are passed to the provider plugin within the request.
     </dd>
-    <dt>{FIELDS-Command}?</dt>
+    <dt>FIELDS ( [field_name] , ... )</dt>
     <dd>
         <em>Optional.</em>
         The FIELDS-Argument specifies a list of columns to import. Maybe not all provided columns of a table are needed. Then you can specify a list of fields that should be imported.
     </dd>
-    <dt>{FILTER-Command}?</dt>
+    <dt>FILTER ( [field_name] [operator] [expression] ... )</dt>
     <dd>
         The FILTER-Argument is used to specify a filter for reducing the amount of imported data. Only records that match the given filter criteria are loaded.
     </dd>
-    <dt>{Another-Command}*</dt>
+    <dt>{Nested Commands}</dt>
     <dd>
         <em>Optional.</em>
         Some nested commands.

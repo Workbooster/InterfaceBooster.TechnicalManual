@@ -9,7 +9,13 @@ The EXECUTE-Command is used to export modified data to a foreign system or a fil
 
 <p>
 A EXECUTE-command always uses this pattern:<br />
-<b><code class="block">EXECUTE [endpoint_path] {SET-Command}? {GET-Command}? {Another-Command}* END</code></b>
+<b><code class="block">
+EXECUTE [endpoint_path] <br />
+SET ( [parameter_name] = [expression] , ... ) <br />
+GET ( [value_name] AS [local_variable_name] , ... )<br />
+{Nested Commands}<br />
+END
+</code></b>
 </p>
 
 <p>
@@ -20,18 +26,18 @@ Description:
     <dt>EXECUTE [endpoint_path]</dt>
     <dd>
         <em>Required.</em>
-        A path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+        Takes a path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
     </dd>
-    <dt>{SET-Command}?</dt>
+    <dt>SET ( [parameter_name] = [expression] , ... ) </dt>
     <dd>
         <em>Optional.</em>
-        A SET-command containing some parameters.
+        The SET-argument is used to specify a comma-separated key-value parameters list. These parameters are passed to the provider plugin within the request.
     </dd>
-    <dt>{GET-Command}?</dt>
+    <dt>GET ( [value_name] AS [local_variable_name] , ... )</dt>
     <dd>
-        A GET-command requesting for some values to be returned.
+        The opposite of the SET-argument. The GET-argument specifies some values that are requested from the provider plugin.
     </dd>
-    <dt>{Another-Command}*</dt>
+    <dt>{Nested Commands}</dt>
     <dd>
         <em>Optional.</em>
         Some nested commands.
@@ -48,7 +54,10 @@ Here you see three examples of how an export could be performed:
 EXECUTE \\webshop\ClearCache END
 
 INT IdArticle;
-EXECUTE \\erp\IncerementCounter SET (EntityName = "Article") GET (NextId AS IdArticle) END
+EXECUTE \\erp\IncerementCounter 
+    SET (EntityName = "Article") 
+    GET (NextId AS IdArticle)
+END
 
 EXECUTE \\erp\RefreshStock
     READ ArticleStock TO \current\ArticleStock  FIELDS (Id, TotalAmount) END
