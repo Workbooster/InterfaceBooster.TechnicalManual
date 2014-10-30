@@ -2,7 +2,7 @@
 <h2>Data Commands <span class="label label-warning">draft</span></h2>
 
 <p>
-Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). These commands are used to perform requests on a provider plugin.
+Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). The commands described in this section are used to perform requests on a provider plugin.
 </p>
 
 <p>
@@ -14,7 +14,7 @@ READ \\erp\API\People TO \imported\people END
 </textarea>
 
 <p>
-But these commands are written as blocks closed by an <code>END</code> keyword. That's because they can be nested too. An example:
+But these commands are always written as blocks closed by an <code>END</code> keyword regardless of whether they are single- or multi-line. That's because they can be nested too. An example:
 </p>
 
 <textarea class="editor" data-editor="synery">

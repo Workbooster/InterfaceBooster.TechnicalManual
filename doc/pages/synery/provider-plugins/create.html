@@ -5,15 +5,23 @@
 The CREATE-Command is used to write new data to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
 </p>
 
+<p>
+This command is only used for creating new records. Existing records can be modified by using the <code>UPDATE</code> command (see: <a href="#/synery/provider-plugins/update">Update</a>).
+</p>
+
 <h3>The CREATE-Command</h3>
 
 <p>
-A CREATE-command always uses this pattern:<br />
-<b><code>
-CREATE [endpoint_path] FROM [table_identifier] <br />
-SET ( [parameter_name] = [expression] , ... ) <br />
-{Nested Commands} <br />
-END</code></b>
+A CREATE-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+        <b>CREATE</b> [endpoint_path] <b>FROM</b> [table_identifier] <br />
+            <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+            <span class="tab">{Nested Commands} </span><br />
+        <b>END</b>
+    </code>
 </p>
 
 <p>

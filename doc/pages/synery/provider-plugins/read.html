@@ -8,14 +8,18 @@ The READ-Command is used to import data from a foreign system or a file by using
 <h3>The READ-Command</h3>
 
 <p>
-A READ-command always uses this pattern:<br />
-<b><code class="block">
-READ [endpoint_path] TO [table_identifier] <br />
-SET ( [parameter_name] = [expression] , ... ) <br />
-FIELDS ( [field_name] , ... ) <br />
-FILTER ( [field_name] [operator] [expression] ... ) <br />
-{Nested Commands} </br>
-END</code></b>
+A READ-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+        <b>READ</b> [endpoint_path] <b>TO</b> [table_identifier] <br />
+            <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+            <span class="tab"><b>FIELDS</b> ( [field_name] , ... ) </span><br />
+            <span class="tab"><b>FILTER</b> ( [field_name] [operator] [expression] ... ) </span><br />
+            <span class="tab">{Nested Commands} </span></br>
+        <b>END</b>
+    </code>
 </p>
 
 <p>

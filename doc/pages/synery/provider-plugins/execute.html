@@ -8,14 +8,17 @@ The EXECUTE-Command is used to export modified data to a foreign system or a fil
 <h3>The EXECUTE-Command</h3>
 
 <p>
-A EXECUTE-command always uses this pattern:<br />
-<b><code class="block">
-EXECUTE [endpoint_path] <br />
-SET ( [parameter_name] = [expression] , ... ) <br />
-GET ( [value_name] AS [local_variable_name] , ... )<br />
-{Nested Commands}<br />
-END
-</code></b>
+A EXECUTE-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+        <b>EXECUTE</b> [endpoint_path] <br />
+            <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+            <span class="tab"><b>GET</b> ( [value_name] AS [local_variable_name] , ... ) </span><br />
+            <span class="tab">{Nested Commands} </span><br />
+        <b>END</b>
+    </code>
 </p>
 
 <p>

@@ -8,14 +8,17 @@ The DELETE-Command is used to export modified data to a foreign system or a file
 <h3>The DELETE-Command</h3>
 
 <p>
-A DELETE-command always uses this pattern:<br />
-<b><code class="block">
-DELETE [endpoint_path] FROM [table_identifier] <br />
-SET ( [parameter_name] = [expression] , ... ) <br />
-FILTER ( [field_name] [operator] [expression] ... ) <br />
-{Nested Commands} <br />
-END
-</code></b>
+A DELETE-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+        <b>DELETE</b> [endpoint_path] <b>FROM</b> [table_identifier] <br />
+            <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+            <span class="tab"><b>FILTER</b> ( [field_name] [operator] [expression] ... ) </span><br />
+            <span class="tab">{Nested Commands} </span><br />
+        <b>END</b>
+    </code>
 </p>
 
 <p>
