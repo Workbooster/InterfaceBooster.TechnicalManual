@@ -37,14 +37,33 @@ The following terms are used in connection with Provider Plugins.
     </dd>
     <dt>Command</dt>
     <dd>
-        There are a lot of commands in Synery. But in this context usually the import/export commands are meant. <br />
-        Synery supports <a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">CRUD</a>(E) commands:
+        There are a lot of commands in Synery. But in this context usually the import/export commands are meant. What commands are supported on an endpoint is defined by the provider plugin. <br />
+        Synery supports the <a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">CRUD</a> commands plus two more:
         <ul>
-            <li><b>C</b>REATE</li>
-            <li><b>R</b>EAD</li>
-            <li><b>U</b>PDATE</li>
-            <li><b>D</b>ELETE</li>
-            <li><b>E</b>XECUTE</li>
+            <li>
+                <b>READ</b><br />
+                Is used to load/import data.
+            </li>
+            <li>
+                <b>CREATE</b><br />
+                Is used to create new records which don't exist yet.
+            </li>
+            <li>
+                <b>UPDATE</b><br />
+                Is used to modify existing records.
+            </li>
+            <li>
+                <b>SAVE</b><br />
+                Is a combination of CREATE and UPDATE. Existing records are update and unknown/new records are created.
+            </li>
+            <li>
+                <b>DELETE</b><br />
+                Is used to delete/destroy existing records.
+            </li>
+            <li>
+                <b>EXECUTE</b><br />
+                Is used to perform actions that don't need a record set (e.g. increment key, refresh cache, execute as transaction etc.).
+            </li>
         </ul>
     </dd>
     <dt>Endpoint</dt>

@@ -1,23 +1,27 @@
 
-<h2>Create <span class="label label-warning">draft</span></h2>
+<h2>Save <span class="label label-warning">draft</span></h2>
 
 <p>
-The CREATE-Command is used to write new data to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
+The SAVE-Command is used to create or update records in a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>).
 </p>
 
 <p>
-This command is only used for creating new records. Existing records can be modified by using the <code>UPDATE</code> command (see: <a href="#/synery/provider-plugins/update">Update</a>). If your are not sure whether a record already exists you can use the <code>SAVE</code> command (see: <a href="#/synery/provider-plugins/save">Save</a>) to perform a <i>CREATE or UPDATE</i> action.
+This command is used to update existing records or create new records if they don't exist. You can use this command if you are not sure whether a record already exists  to perform a <i>CREATE or UPDATE</i> action.
 </p>
 
-<h3>The CREATE-Command</h3>
+<p>
+If you already know whether the records from your table already exist you can use the specific <code>CREATE</code> or <code>UPDATE</code> commands. New records can be created by using the <code>CREATE</code> command (see: <a href="#/synery/provider-plugins/create">Create</a>). Existing records can be modified by using the <code>UPDATE</code> command (see: <a href="#/synery/provider-plugins/update">Update</a>).
+</p>
+
+<h3>The SAVE-Command</h3>
 
 <p>
-A CREATE-command always uses this pattern:
+A SAVE-command always uses this pattern:
 </p>
 
 <p>
     <code class="block">
-        <b>CREATE</b> [endpoint_path] <b>FROM</b> [table_identifier] <br />
+        <b>SAVE</b> [endpoint_path] <b>FROM</b> [table_identifier] <br />
             <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
             <span class="tab">{Nested Commands} </span><br />
         <b>END</b>
@@ -29,7 +33,7 @@ Description:
 </p>
 
 <dl class="definition">
-    <dt>CREATE [endpoint_path]</dt>
+    <dt>SAVE [endpoint_path]</dt>
     <dd>
         <em>Required.</em>
         Takes a path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
@@ -58,12 +62,12 @@ Here you see two examples of how an export could be performed:
 </p>
 
 <textarea class="editor" data-editor="synery">
-CREATE \\csvConnection\Data FROM \new\positions END
+SAVE \\csvConnection\Data FROM \new\positions END
 
-CREATE \\erp\API\Companies FROM \new\Companies
+SAVE \\erp\API\Companies FROM \new\Companies
     SET (UpdateExistingOrders = TRUE, CreateAsUserId = 12)
-    CREATE ContactPersons FROM \new\ContactPersons END
-    CREATE Addresses FROM \new\Addresses END
-    READ Companies TO \created\Companies  FIELDS (Id, ExternalId, Name) SET (OnlyCreated = TRUE) END
+    SAVE ContactPersons FROM \new\ContactPersons END
+    SAVE Addresses FROM \new\Addresses END
+    READ Companies TO \saved\Companies  FIELDS (Id, ExternalId, Name) SET (OnlyCreated = TRUE) END
 END
 </textarea>

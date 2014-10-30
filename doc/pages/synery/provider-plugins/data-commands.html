@@ -2,7 +2,7 @@
 <h2>Data Commands <span class="label label-warning">draft</span></h2>
 
 <p>
-Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). The commands described in this section are used to perform requests on a provider plugin.
+Synery knows a few commands for reading and writing data from and to a foreign system or a file by using a connection (see: <a href="#/synery/provider-plugins/connect">Connect</a>). The commands described in this section are used to perform requests on a provider plugin. Which command are available to use is defined by the provider plugin.
 </p>
 
 <p>
@@ -37,13 +37,6 @@ As you can see in the example above each command-block can take some nested comm
 <p>
 
 <ul>
-    <li>CREATE
-        <ul>
-            <li>FROM</li>
-            <li>SET</li>
-            <li>[Another Command]</li>
-        </ul>
-    </li>
     <li>READ
         <ul>
             <li>TO</li>
@@ -53,11 +46,25 @@ As you can see in the example above each command-block can take some nested comm
             <li>[Another Command]</li>
         </ul>
     </li>
+    <li>CREATE
+        <ul>
+            <li>FROM</li>
+            <li>SET</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
     <li>UPDATE
         <ul>
             <li>FROM</li>
             <li>SET</li>
             <li>FILTER</li>
+            <li>[Another Command]</li>
+        </ul>
+    </li>
+    <li>SAVE
+        <ul>
+            <li>FROM</li>
+            <li>SET</li>
             <li>[Another Command]</li>
         </ul>
     </li>
