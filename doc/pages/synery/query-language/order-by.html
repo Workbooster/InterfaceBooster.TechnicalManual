@@ -1,0 +1,135 @@
+
+<h2>Order By <span class="label label-warning">draft</span></h2>
+
+<p>
+Like in SQL the <code>ORDER BY</code> command is used to sort the data in the result set.
+</p>
+
+<p>
+One query statement can contain multiple <code>ORDER BY</code> commands. Each command is based on the result set of the prior commands. 
+</p>
+
+<h3>An Example</h3>
+
+<p>
+Assume we have a table like this:
+</p>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="4">\people</th>
+        </tr>
+        <tr>
+            <th>Id (INT)</th>
+            <th>IsMale (BOOL)</th>
+            <th>Firstname (STRING)</th>
+            <th>Lastname (STRING)</th>
+            <th>Size (INT)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>15</td>
+            <td>TRUE</td>
+            <td>Mike</td>
+            <td>Meyer</td>
+            <td>182</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>FALSE</td>
+            <td>Sandra</td>
+            <td>Smith</td>
+            <td>168</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>TRUE</td>
+            <td>Peter</td>
+            <td>Muller</td>
+            <td>169</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td>FALSE</td>
+            <td>Rachel</td>
+            <td>Lopez</td>
+            <td>175</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+Now let's have a look how a Synery query could look like when querying the table from above:
+</p>
+
+<textarea class="editor" data-editor="synery">
+\myTables\sortedPeople =
+    FROM \people AS p
+    ORDER BY p.Size DESC;
+</textarea>
+
+<p>
+On the third line we have a <code>ORDER BY</code> command that defines the sorting of the resulting table. In this case we'd like to have the tallest person on top and the shortest person on the bottom of the table. For that reason we use the keyword <code>DESC</code> to get a descending order.
+</p>
+
+<p>
+The result will look like this:
+</p>
+
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="4">\myTables\sortedPeople</th>
+        </tr>
+        <tr>
+            <th>Id (INT)</th>
+            <th>IsMale (BOOL)</th>
+            <th>Firstname (STRING)</th>
+            <th>Lastname (STRING)</th>
+            <th>Size (INT)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>15</td>
+            <td>TRUE</td>
+            <td>Mike</td>
+            <td>Meyer</td>
+            <td>182</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td>FALSE</td>
+            <td>Rachel</td>
+            <td>Lopez</td>
+            <td>175</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>TRUE</td>
+            <td>Peter</td>
+            <td>Muller</td>
+            <td>169</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>FALSE</td>
+            <td>Sandra</td>
+            <td>Smith</td>
+            <td>168</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+Like in SQL in Synery it's also possible to use multiple columns for the sorting. You can specify them by using a comma-separated list. An Example:
+</p>
+
+<textarea class="editor" data-editor="synery">
+\myTables\sortedPeople =
+    FROM \people AS p
+    ORDER BY p.Lastname, p.Firstname
+</textarea>
