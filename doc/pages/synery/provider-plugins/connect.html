@@ -8,13 +8,16 @@ The Connect-Command is used to create a connection to a foreign system or a file
 <h3>The Command</h3>
 
 <p>
-A connect-command always uses this pattern:<br />
-<b><code class="block">
-CONNECT "[provider_plugin_instance_name]" <br />
-AS [connection_identifier] <br />
-SET ( [parameter_name] = [expression] , ... ) <br />
-END
-</code></b>
+A connect-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+    <b>CONNECT</b> "[provider_plugin_instance_name]" <br />
+        <span class="tab"><b>AS</b> [connection_identifier] </span><br />
+        <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+    <b>END</b>
+    </code>
 </p>
 
 <p>
