@@ -1,0 +1,50 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Interface Booster Runtime</h2>
+
+<p>
+The Interface Booster Runtime environment is a software that is used to execute an interface application.
+</p>
+
+<h3>System Context</h3>
+<p>
+The following System Context UML diagram shows how the components of the Interface Booster environment are related to each other:
+</p>
+<a href="img/content/interfacebooster/system-context.png" class="imagelink" title="The System Context of the Interface Booster Runtime Environment" >
+    <img width="460" src="img/content/interfacebooster/system-context.png" />
+</a>
+<p>
+An interface job may be started by an End-User or by a Batch Job. On startup the runtime software needs to know the filepath of an Interface Definition and the name(s) of the job(s) that should be executed. The Interface Definition contains the business logic. It is implemented by using the Synery programming language. An Interface Definition may contain many Synery code files.
+</p>
+<p>
+The Interface Booster Runtime software itself doesn't know any foreign system. To communicate with an other system Interface Booster uses Provider Plugins.
+</p>
+<p>
+For extending the functionality of the Synery language there are Library Plugins.
+</p>
+
+
+<h3>What is needed for starting an interface job?</h3>
+<p>
+For executing an interface job there are a few components required:
+</p>
+<ul>
+    <li>Interface Booster Runtime Software (EXE)</li>
+    <li>The Interface Definition:
+        <ul>
+            <li>importDefinition.xml</li>
+            <li>Synery Code files (*.sny)</li>
+        </ul>
+    </li>
+    <li>All referenced Provider Plugins</li>
+    <li>All referenced Library Plugins</li>
+</ul>
+
+</section>
+</div>
+</div>

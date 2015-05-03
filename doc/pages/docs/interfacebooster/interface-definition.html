@@ -1,0 +1,65 @@
+﻿<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Interface Definition</h2>
+
+<p>
+The Interface Definition consist of multiple files that together with the Interface Booster Runtime software build the interface application.
+</p>
+
+<h3>File System Structure</h3>
+
+<textarea class="editor" data-editor="code">
+{Root Directory Path}                   // Main directory of the definition
+|-- definition.xml                      // Definition project file
+|-- code                                // Synery source code
+    |-- {Id of 1. Job}.sny              // Each job has a main code file that is
+    |-- {Id of 2. Job}.sny                 used as entry point for executing the job.
+    |-- ...
+    |-- {Code File Name}.sny            // Additional Synery code files with a
+    |-- ...                                user-defined name.
+        |-- {Directory Name}            // Even subdirectories are allowed
+            |-- {Code File Name}.sny    // Also subdirectories can contain any
+            |-- ...                        Synery source code files
+|-- runtime                             // Directory is created at runtime
+    |-- db                              // Data files of the Synery Database
+    |-- log                             // Log files
+</textarea>
+
+<h3>importDefinition.xml</h3>
+
+<p>
+This XML file contains these information:
+</p>
+
+<ul>
+    <li>Information about the interface application for the end user.</li>
+    <li>Technical information about the required environment.</li>
+    <li>Plugin references
+        <ul>
+            <li>A list of all required Provider Plugins.</li>
+            <li>A list of all required Library Plugins.</li>
+        </ul>
+    </li>
+    <li>Interface Jobs
+        <ul>
+            <li>Information about the jobs for the end user.</li>
+            <li>A list of Synery code files which should be included to the main job Synery code file during execution.</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Structure</h4>
+
+<a href="img/content/interfacebooster/interface-definition-structure.png" class="imagelink" title="The structure of importDefinition.xml" >
+    <img width="460" src="img/content/interfacebooster/interface-definition-structure.png" alt="The structure of importDefinition.xml" />
+</a>
+    
+
+</section>
+</div>
+</div>

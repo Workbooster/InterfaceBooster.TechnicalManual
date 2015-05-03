@@ -1,0 +1,110 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Primitive Data Types</h2>
+
+<p>
+Synery supports a few primitive data types that are based on the native .NET types (64bit). See: <a href="http://msdn.microsoft.com/en-us/library/ya5y69ds.aspx" target="_blank">MSDN: Built-In Types Table (C# Reference)</a>.
+</p>
+
+<p>
+Here is a list of supported types and a few examples how they can be used:
+</p>
+
+<h3>STRING</h3>
+
+<p>
+A string is used for texts. It represents a sequence of zero or more Unicode characters. It is written in double quotes (").
+</p>
+
+<textarea class="editor" data-editor="synery">
+STRING someText = "This is a simple text";
+</textarea>
+
+<p>
+It is also possible to write a multi-line text:
+</p>
+
+<textarea class="editor" data-editor="synery">
+STRING multiLineText = @"First line
+Second line
+Third and last line";
+</textarea>
+
+<h3>INT</h3>
+
+<p>
+An integer number without decimal places. (See: <a href="http://msdn.microsoft.com/en-us/library/system.int64.aspx" target="_blank">MSDN: Int64</a>)
+</p>
+
+<textarea class="editor" data-editor="synery">
+INT someNumber = 15;
+</textarea>
+
+<h3>DECIMAL</h3>
+
+<p>
+A floating point number for example used for financial and monetary calculations. (See: <a href="http://msdn.microsoft.com/en-us/library/364x0z75.aspx" target="_blank">MSDN: decimal</a>)
+</p>
+
+<textarea class="editor" data-editor="synery">
+DECIMAL someNumber = 22.537M;
+</textarea>
+
+<h3>DOUBLE</h3>
+
+<p>
+A 64-bit floating-point number. (See: <a href="http://msdn.microsoft.com/en-us/library/678hzkk9.aspx" target="_blank">MSDN: double</a>)
+</p>
+
+<textarea class="editor" data-editor="synery">
+DOUBLE someNumber = 13.54697;
+</textarea>
+
+<h3>CHAR</h3>
+
+<p>
+One single Unicode character. (See: <a href="http://msdn.microsoft.com/en-us/library/x9h8tsay.aspx" target="_blank">MSDN: char</a>)
+</p>
+
+<textarea class="editor" data-editor="synery">
+CHAR someNumber = 'R';
+</textarea>
+
+<h3>DATETIME</h3>
+
+<p>
+Represents a date and/or a time value. (See: <a href="http://msdn.microsoft.com/en-us/library/system.datetime(v=vs.110).aspx" target="_blank">MSDN: DateTime</a>)
+</p>
+
+<p>
+A DATETIME value can be initialized using integer numbers in the format "Year, Month, Day, Hour, Minute, Second". Here are a few examples:
+</p>
+
+<textarea class="editor" data-editor="synery">
+DATETIME dtm = DATETIME(2014,8,28,20,15,0);    // for the August 28. 2014, 08:15:00 PM
+DATETIME dtm = DATETIME(1987,12,15);           // for the December 15. 1987
+</textarea>
+
+<p>
+Another way to initialize a DATETIME is by using a text and the name of the culture the date text is based on.
+</p>
+
+<p>
+Here you can find a list of supported cultures (column "Culture Name"): <a href="http://msdn.microsoft.com/de-de/goglobal/bb896001.aspx" target="_blank">National Language Support (NLS) API Reference</a>
+</p>
+
+<textarea class="editor" data-editor="synery">
+DATETIME dtm = DATETIME("20/03/2014 07:20:00", "en-GB");   // for the March 20. 2014, 07:20:00 AM
+DATETIME dtm = DATETIME("17.03.2014 20:00:00", "de-ch");   // for the March 17. 2014, 08:00:00 PM
+</textarea>
+
+    
+
+</section>
+</div>
+</div>

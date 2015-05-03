@@ -1,0 +1,88 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Loops <span class="label label-warning">draft</span> <span class="label label-danger">Experimental</span></h2>
+
+<p>
+In Synery loops can be used to traverse records from a table. It is very close to <code>foreach</code>-loops in other languages like C# or PHP.
+</p>
+
+<h3>An Example</h3>
+
+<p>
+Assume we have this table:
+</p>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="4">\people</th>
+        </tr>
+        <tr>
+            <th>Id (INT)</th>
+            <th>Firstname (STRING)</th>
+            <th>Lastname (STRING)</th>
+            <th>Size (INT)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>15</td>
+            <td>Mike</td>
+            <td>Meyer</td>
+            <td>182</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Sandra</td>
+            <td>Smith</td>
+            <td>168</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td>Rachel</td>
+            <td>Lopez</td>
+            <td>175</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+Now we'd like to loop threw all rows. For that we need to create a new record type and used it to create a record from each row:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#Person(INT Id, STRING Lastname);
+
+// Returns the ID of the first person with the given lastname
+INT getIdOfFirstRecord(STRING lastnameFilter)
+
+    // start the loop
+    EACH #Person p IN \people
+        IF p.Lastname == lastnameFilter
+            RETURN p.Id;
+        END
+    END
+    
+    RETURN -1;
+END
+
+INT firstSmith = getIdOfFirstRecord("Smith");   // = 22
+</textarea>
+
+<p>
+Please note that the <code>#Person</code> only has two fields but the table <code>\people</code> has four columns. Synery only assigns the columns for witch a field is available. For doing this Synery compares the field names of the record type with the column names of the table. Only a column with exactly the same name (case sensitive) as the field is assigned.
+</p>
+
+<p>
+That also works the other way: If the record type has a field which the table doesn't have the field is just initialized with NULL. So it's also possible to have more fields in a record type than the traversed table has columns.
+    </p>
+    
+
+</section>
+</div>
+</div>

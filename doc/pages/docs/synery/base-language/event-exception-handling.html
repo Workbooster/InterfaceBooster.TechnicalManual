@@ -1,0 +1,274 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Event/Exception Handling <span class="label label-warning">draft</span> <span class="label label-danger">Experimental</span></h2>
+
+<p>
+Synery combines the concepts of event-handling and exceptions. The developer can specify whether his event breaks the current code-block (like in languages that work with <code>try-catch</code> and <code>throw new Exception()</code>) or just broadcasts an event-message upwards and after that continues with the current code block. This means that in Synery an exception also is an event.
+</p>
+
+<p>
+Both, Exceptions and Events basically are record types that are given by the system. Their signature looks like this:
+</p>
+
+<textarea class="editor" data-editor="synery">
+#.Event(BOOL IsHandled);
+#.Exception(STRING Message) : #.Event;
+</textarea>
+
+<p>
+It is also possible to use those types as base type and create a derived exception or event record type.
+</p>
+
+<p>
+To trigger an event there are two commands: <code>EMIT</code> and <code>THROW</code>. For catching an event you have to create an <code>OBSERVE</code> block and register some listeners by using the <code>HANDLE</code> command.
+</p>
+
+<p>
+The <code>THROW</code> command can only be used with types that derive from <code>#.Exception</code>. The <code>EMIT</code> command can be used with all <code>#.Event</code>-types even with <code>#.Exception</code>.
+</p>
+
+<p>
+While <code>EMIT</code> only broadcasts the event upwards, the <code>THROW</code> command breaks the next higher <code>OBSERVE</code> block that handles the thrown exception type.
+</p>
+
+<p>
+Here you see a short example that explains the behavior:
+</p>
+
+<textarea class="editor" data-editor="synery">
+OBSERVE
+
+    // ... some code ...
+    
+    // Create an event and emit it.
+    // The code execution continues at this position after all event Handlers have been called
+    EMIT #.Event("Something happened");
+    
+    // ... some code ...
+    
+    // Create an exception and throw it.
+    // The code execution continues at the end of the surrounding OBSERVE-block.
+    THROW #.Exception("An error occured");
+    
+    // ... some code (wont be executed because THROW breaks the surrounding OBSERVE block).
+   
+
+// The HANDLE-blocks have to stay at the end of an OBSERVE-block.
+// They are executed in the order they are written (from top to bottom).
+
+HANDLE(#.Exception ex)
+    // handles all Exceptions.
+    IF ex.IsHandled == FALSE
+        
+        // Do something if the exception wasn't already handled.
+        
+    END
+
+HANDLE(#.Event evt)
+    // Handles all Events, even the Exceptions because they are derived from the event record type.
+    IF evt.IsHandled == FALSE
+        
+        // Do something if the Event wasn't already handled.
+        
+    END
+END // the end of the observe block
+</textarea>
+
+<p>
+Each event by default has a "IsHandled" field. If an event has passed the first <code>HANDLE</code> block the "IsHandled"-flag is automatically set to TRUE. This is useful if you plan to log event messages to prevent logging the same message multiple times.
+</p>
+
+<h3>Custom Events</h3>
+
+<p>
+For sure it is possible to create custom event and exceptions. This happens by inheritance. This means that you have to use <code>#.Event</code> or <code>#.Exception</code> as base type. An Example:
+</p>
+
+<textarea class="editor" data-editor="synery">
+// Assume we have a "Person" type
+#Person(INT Id, STRING Firstname, STRING Lastname);
+
+// Create a custom event that has one more field: "AddedPerson"
+#PersonAdded(#Person AddedPerson) : #.Event;
+
+// Create a function that takes a "Person" record as parameter
+AddRecord(#Person p)
+    
+    // ... do something with the person ...
+    
+    EMIT #PersonAdded(AddedPerson = p);
+    
+    // ... maybe some more code ....
+END
+
+OBSERVE
+    #Person mike = #Person(Id = 15, Firstname = "Mike", Lastname = "Meyer");
+    
+    AddRecord(mike);
+    
+HANDLE(#PersonAdded evt)
+    IF evt.IsHandled == FALSE
+        $Log.Add("Added a person with Id=" + (STRING)evt.AddedPerson.Id);
+    END
+END
+</textarea>
+
+<h3>System Events</h3>
+
+<p>
+Interface Booster can emit several system events. Here you find a list of these events:
+</p>
+
+<dl class="definition">
+    <dt>ProviderPluginResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.ProviderPluginResponseEvent(STRING ProviderPluginId, STRING ProviderPluginName, STRING ProviderPluginIdentifier, STRING ProviderPluginInstanceId, STRING ProviderPluginInstanceName) : #.Event</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has processed a record set of request. For example if you during a READ request ask for 3 record sets this event is emitted 3 times each after a record set has been loaded.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING ProviderPluginId<br/><i>The GUID of the plugin.</i></li>
+                <li>STRING ProviderPluginName<br/><i>The name of the plugin.</i></li>
+                <li>STRING ProviderPluginIdentifier<br/><i>The synery identifier of the plugin.</i></li>
+                <li>STRING ProviderPluginInstanceId<br/><i>The GUID of the plugin instance.</i></li>
+                <li>STRING ProviderPluginInstanceName<br/><i>The name of the plugin instance.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>ReadResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.ReadResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has read a table / set of records. For example if you during a READ request ask for 3 record sets this event is emitted 3 times each after a record set has been loaded.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were loaded during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>CreateResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.CreateResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has created the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were created during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>UpdateResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.UpdateResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has updated the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were updated during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+    <dt>DeleteResponseEvent</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.DeleteResponseEvent(STRING Message, INT NumberOfAffectedRecords) : #.ProviderPluginResponseEvent</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Occurs when a provider plugin has deleted the given records from a record set.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>STRING Message<br/><i>The message returned by the provider plugin or NULL if nothing was returned.</i></li>
+                <li>INT NumberOfAffectedRecords<br/><i>The number of records that were deleted during the request.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+</dl>
+
+<h3>System Exceptions</h3>
+
+<p>
+Interface Booster can throw several types of system exceptions. Here you find a list of these exceptions:
+</p>
+
+<dl class="definition">
+    <dt>InterpretationException</dt>
+    <dd>
+        <dl>
+            <dt>Declaration:</dt>
+            <dd><code>#.InterpretationException(INT Line, INT CharPosition) : #.Exception</code></dd>
+        </dl>
+        <dl>
+            <dt>Description:</dt>
+            <dd>Contains an error detected by the Synery Interpreter.</dd>
+        </dl>
+        <dl>
+            <dt>Fields:</dt>
+            <dd>
+            <ul>
+                <li>INT Line<br/><i>The line number where the first problem occurs.</i></li>
+                <li>INT CharPosition<br/><i>The position from left at the first line where the first problem occurs.</i></li>
+            </ul>
+            </dd>
+        </dl>
+    </dd>
+</dl>
+
+<h3>Unhandled Exceptions</h3>
+
+<p>
+If an exception is unhandled it breaks the program. But unlike in other programming languages the program won't crash. It dumps a log-file that contains several information about the program and the thrown exception. In console mode it returns an error code which is important for the monitoring if the program runs as job.
+</p>
+
+<p>
+The log-files from unhandled exceptions will be stored in the <code>/runtime/log</code> directory in the interface definition directory. 
+</p>
+
+</section>
+</div>
+</div>

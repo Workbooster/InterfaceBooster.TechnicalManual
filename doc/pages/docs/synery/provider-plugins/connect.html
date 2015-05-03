@@ -1,0 +1,90 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Connect <span class="label label-warning">draft</span></h2>
+
+<p>
+The Connect-Command is used to create a connection to a foreign system or a file by using a provider plugin. A connection is required to perform import and export commands.
+</p>
+
+<h3>The Command</h3>
+
+<p>
+A connect-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+    <b>CONNECT</b> "[provider_plugin_instance_name]" <br />
+        <span class="tab"><b>AS</b> [connection_identifier] </span><br />
+        <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+    <b>END</b>
+    </code>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>CONNECT "[provider_plugin_instance_name]"</dt>
+    <dd>
+        <em>Required.</em>
+        Takes the <code>syneryIdentifier</code> of the plugin instance specified in the <a href="#/docs/interfacebooster/interface-definition">Interface Definition</a>.
+    </dd>
+    <dt>AS [connection_identifier]</dt>
+    <dd>
+        <em>Required.</em>
+        Takes the external identifier starting with two backslashes <code>\\</code>. An example: <code>\\myCategory\someConnection</code>.
+    </dd>
+    <dt>SET ( [parameter_name] = [expression] , ... )</dt>
+    <dd>
+        <em>Optional.</em>
+        The SET-argument is used to specify a comma-separated key-value parameters list that can/must be used to configure the connection.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see two examples of how a connection could be created:
+</p>
+
+<textarea class="editor" data-editor="synery">
+CONNECT "CSV 1.0" 
+    AS \\csvConnection 
+    SET ( File.Path = @"D:\temp\artikel.csv", Parser.Separator = ";" ) 
+END
+
+CONNECT "MS SQL 2012" 
+    AS \\sqlConnection
+    SET ( 
+	Connection.DataSource = @"(local)\SQLDEVELOP", 
+	Connection.Port = 1433,
+	Connection.User = "dev", 
+	Connection.Password = "123", 
+	Connection.Name = "PX000000" )
+END
+</textarea>
+
+<p>
+In the first command you see an example statement for creating a connection to a CSV file by using a provider plugin instance with the name "CSV 1.0". The connection is inetrnally identified by the name <code>\\csvConnection</code>. This name can later be used to perform import and export commands. Two parameters are used for opening the connection.
+</p>
+
+<p>
+The second command looks quite the same as the first one but it opens a connection to a SQL Server. It uses a provider plugin instance called "MS SQL 2012" and stores the connection in <code>\\sqlConnection</code>.
+</p>
+
+<p>
+As you can see the two commands addresses totally different targets but look quite the same.
+</p>
+
+    
+
+</section>
+</div>
+</div>

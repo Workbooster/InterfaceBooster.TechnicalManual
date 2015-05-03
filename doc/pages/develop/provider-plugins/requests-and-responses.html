@@ -1,0 +1,62 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Requests and Responses</h2>
+
+            <p>
+                Interface Booster sends requests to Provider Plugins endpoints and expects them to return a response.
+            </p>
+
+            <h3>Step-by-Step: How a request works?</h3>
+
+            <p>Before Interface Booster can perform a request a connection must be available. See: <a href="#/develop/provider-plugins/instances-and-connections">Instances and Connections</a></p>
+
+            <p>Assume we already have an open connection the following steps are part of a request:</p>
+
+            <div class="flow">
+                <div class="colorblock bg1 item i01">A <a href="#/docs/synery/provider-plugins/data-commands">data command</a> with an indefined number of nested commands is given.</div>
+                <div class="arrow i01"></div>
+                <div class="colorblock bg3 item i02">Search for a connection that matches the given endpoint path.</div>
+                <div class="arrow i02"></div>
+                <div class="colorblock bg1 item i03">
+                    <b>Prepare the request data:</b><br />
+                    Requested fields on read<br />
+                    Filters on read or delete<br />
+                    Export schema on write<br />
+                    Parameters (always)<br />
+                    Requested values on execute<br />
+                </div>
+                <div class="arrow i03"></div>
+                <div class="colorblock bg3 item i04">Validate the request data: Are all required parameters and fields set? Do the data types match?</div>
+                <div class="arrow i04"></div>
+                <div class="colorblock bg1 item i01">Call the Run***Request method on the <a href="#/develop/provider-plugins/endpoints">Endpoint</a>.</div>
+                <div class="arrow i01"></div>
+                <div class="colorblock bg3 item i02">Wait until the Provider Plugin returns a response.</div>
+                <div class="arrow i02"></div>
+                <div class="colorblock bg1 item i03">Read back the returned data to memory (variables) or database (record sets).</div>
+                <div class="arrow i03"></div>
+                <div class="colorblock bg8 item i04">End of request.</div>
+            </div>
+
+            <h3>Example: Dependencies of an Update Command</h3>
+
+            <p>
+                In the following diagram you can see the dependencies of an endpoint, the resource, the request and the response needed for an update command:
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/endpoints-update-command-example.png" class="imagelink" title="UML: Dependencies of endpoint, resource, request and response">
+                    <img width="640" src="img/content/develop/provider-plugins/endpoints-update-command-example.png" alt="UML: Dependencies of endpoint, resource, request and response" />
+                </a>
+            </p>
+
+        </section>
+    </div>
+</div>

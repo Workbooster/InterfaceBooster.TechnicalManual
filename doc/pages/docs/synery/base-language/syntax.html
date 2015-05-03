@@ -1,0 +1,63 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Syntax <span class="label label-success">reviewed</span></h2>
+
+<p>
+The syntax and the keywords of Synery are reduced to a minimum. We tried to find a good compromise between less syntax and good readability.
+</p>
+
+<h3>Special Chars</h3>
+
+<p>
+As a part of a degree dissertation at a professional school in switzerland it was analyzed how much time an average user (with less or no IT know-how) needs to find some special chars on its keyboard. Based on this analysis only these special chars are used in Synery:
+</p>
+
+<textarea class="editor" data-editor="synery">
+    - + * / \ . : ; , _ ( ) " ' ? ! % & = @ $ # < >
+</textarea>
+
+Special chars that an average user doesn't regularly use are not part of the Synery syntax. For example these special chars <b>are not used</b> in Synery code:
+
+<textarea class="editor" data-editor="synery">
+    [] {} |
+</textarea>
+
+<h3>Keywords</h3>
+
+<p>
+Synery keywords all are written in capital letters. A few examples:
+</p>
+
+<textarea class="editor" data-editor="synery">
+    STRING, INT, BOOL, TRUE, CONNECT, IMPORT, EXPORT, SELECT, RETURN, IF, ELSE, NULL
+</textarea>
+<p>
+<a href="#/docs/synery/base-language/keywords-and-operators">Here you can find a list of keywords that are used in Synery.</a>
+</p>
+
+<h3>Comments</h3>
+
+<p>
+In Synery comments can be written like in C-based languages:
+</p>
+
+<textarea class="editor" data-editor="synery">
+    // a single-line comment
+    
+    INT fife = 5; // an other single-line comment after a statement
+    
+    /*
+        Or:
+        A multi-line comment.
+    */
+</textarea>
+    
+
+</section>
+</div>
+</div>

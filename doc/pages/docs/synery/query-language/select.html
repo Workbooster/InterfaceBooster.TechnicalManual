@@ -1,0 +1,128 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Select <span class="label label-warning">draft</span></h2>
+
+<p>
+Like in SQL the <code>SELECT</code> command is used to chose fields and restructure the schema of the result set.
+</p>
+
+<p>
+One query statement can contain multiple <code>SELECT</code> commands. Each command is based on the result set of the prior commands. For example if the first <code>SELECT</code> command doesn't select a field from the original table this field cannot be used anymore in the following <code>SELECT</code> commands. You can think like you have a new table after every command in a query statement.
+</p>
+
+<h3>An Example</h3>
+
+<p>
+Assume we have a table like this:
+</p>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="4">\people</th>
+        </tr>
+        <tr>
+            <th>Id (INT)</th>
+            <th>IsMale (BOOL)</th>
+            <th>Firstname (STRING)</th>
+            <th>Lastname (STRING)</th>
+            <th>Size (INT)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>15</td>
+            <td>TRUE</td>
+            <td>Mike</td>
+            <td>Meyer</td>
+            <td>182</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>FALSE</td>
+            <td>Sandra</td>
+            <td>Smith</td>
+            <td>168</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>TRUE</td>
+            <td>Peter</td>
+            <td>Muller</td>
+            <td>169</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td>FALSE</td>
+            <td>Rachel</td>
+            <td>Lopez</td>
+            <td>175</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+Now let's have a look how a Synery query could look like when querying the table from above:
+</p>
+
+<textarea class="editor" data-editor="synery">
+\myTables\myPeople =
+    FROM \people AS p
+    SELECT FullName = p.FirstName + " " + p.LastName, p.Size;
+
+</textarea>
+
+<p>
+On the first line you see a table statement with an equality sign <code>=</code>. This mean that the result of the following query should be stored in the table with the given name. In this case a new table with the name <code>\myTables\myPeople</code> will be created.
+</p>
+
+<p>
+On the second line we have a <code>FROM</code> command that declares which is the source table (in this case <code>\people</code>) an what alias (here: <code>p</code>) should be used for that table.
+</p>
+
+<p>
+On the third line we have a <code>SELECT</code> command that defines the structure of the resulting table.
+</p>
+
+<p>
+The result will look like this:
+</p>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="2">\myTables\myPeople</th>
+        </tr>
+        <tr>
+            <th>FullName (STRING)</th>
+            <th>Size (INT)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Mike Meyer</td>
+            <td>182</td>
+        </tr>
+        <tr>
+            <td>Sandra Smith</td>
+            <td>168</td>
+        </tr>
+        <tr>
+            <td>Peter Muller</td>
+            <td>169</td>
+        </tr>
+        <tr>
+            <td>Rachel </td>
+            <td>175</td>
+        </tr>
+    </tbody>
+</table>
+
+</section>
+</div>
+</div>

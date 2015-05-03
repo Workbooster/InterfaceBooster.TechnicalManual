@@ -1,0 +1,53 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Tables <span class="label label-warning">draft</span></h2>
+
+<p>
+The Synery query language works with tabular data structures. This means that you have columns that represent fields and rows that represent records.
+</p>
+
+<p>
+Tables can be addressed by using a so called "Table Statement" (see below).
+</p>
+
+<p>
+Technically it is important to know that there is a big different between variables and tables because they are stored in different ways. Variables always stay in the computers memory during runtime. On the other hand tables are stored on the hard disk and are only partially loaded to the memory during a query operation.
+</p>
+
+<h3>Table Statement</h3>
+
+<p>
+In Synery you can address a table by using a table statement. A table statement looks like a path in a network environment. An example: 
+</p>
+
+<textarea class="editor" data-editor="synery">
+\tableGroup\myTable
+</textarea>
+
+<p>
+It is different to variable identifiers because it always starts with a backslash <code>\</code>. The benefit of this is that you always can distinguish between variables and tables.
+</p>
+
+<p>
+You are free to use as much backslashes <code>\</code> as you want in a table statement. It is recommended that you use these paths to organize and group your tables. A few examples:
+</p>
+
+<ul>
+    <li><code>\myERP\resources\employees</code></li>
+    <li><code>\myERP\resources\employees\addresses</code></li>
+    <li><code>\myERP\resources\employees\contracts</code></li>
+    <li><code>\myERP\resources\facilities</code></li>
+    <li><code>\myERP\finance\accounts</code></li>
+    <li><code>\myERP\finance\bookings</code></li>
+    <li><code>\XmlFile\people</code></li>
+    <li><code>\XmlFile\addresses</code></li>
+</ul>
+
+</section>
+</div>
+</div>

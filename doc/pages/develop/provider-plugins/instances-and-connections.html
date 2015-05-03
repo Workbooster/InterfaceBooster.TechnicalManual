@@ -1,0 +1,60 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Instances and Connections</h2>
+
+            <p>
+                A Provider Plugins can have multiple instances. Those implement the interface <code>IProviderPluginInstance</code>.
+            </p>
+
+            <p>
+                This allows the developer of a Provider Plugin to create multiple versions of the plugin for example to work with different API versions of a foreign system or different versions of a file format.
+            </p>
+
+            <p>
+                The instance of a Provider Plugin can "ask" the interface developer a few questions needed to open a connection. Answering a questions can be optional or required.
+            </p>
+
+            <h3>Interfaces needed to create a Provider Plugin Connection</h3>
+
+            <p>
+                The following diagram shows the three interfaces that must be implemented by each Provider Plugin:
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/instances-and-connections.png" class="imagelink" title="UML: Provider Plugin base interfaces">
+                    <img width="640" src="img/content/develop/provider-plugins/instances-and-connections.png" alt="UML: Provider Plugin base interfaces" />
+                </a>
+            </p>
+
+            <h3>Step-by-Step: How is a Connection created?</h3>
+
+            <p>The Interface Booster performs the following steps to open a connection:</p>
+
+            <div class="flow">
+                <div class="colorblock bg1 item i01">Read plugin.xml from the plugins' main directory.</div>
+                <div class="arrow i01"></div>
+                <div class="colorblock bg3 item i02">Load the *.DLL assembly that matches the selected version.</div>
+                <div class="arrow i02"></div>
+                <div class="colorblock bg1 item i03">Search for the class that implements <code>IProviderPlugin</code>.</div>
+                <div class="arrow i03"></div>
+                <div class="colorblock bg3 item i04">Call CreateProviderPluginInstance to get a <code>IProviderPluginInstance</code> using the GUID from the plugin.xml file.</div>
+                <div class="arrow i04"></div>
+                <div class="colorblock bg1 item i01">Get the <code>ConnectionSettingQuestions</code>.</div>
+                <div class="arrow i01"></div>
+                <div class="colorblock bg3 item i02">Check the parameter (answers) set by the interface developer: Are all required parameters set? Do the data types match?</div>
+                <div class="arrow i02"></div>
+                <div class="colorblock bg1 item i03">Call CreateProviderConnection to get a <code>IProviderConnection</code>.</div>
+                <div class="arrow i03"></div>
+                <div class="colorblock bg8 item i04">The Connection whit its' <a href="#/develop/provider-plugins/endpoints">Endpoints</a> is now available.</div>
+            </div>
+        </section>
+    </div>
+</div>

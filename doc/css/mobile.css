@@ -1,0 +1,49 @@
+
+.hidden-mobile { visibility: hidden; display: none; position: absolute; width: 0px; height: 0px; padding: 0px; margin: 0px; overflow: hidden; }
+
+header img.logo { margin: 0.5em auto 0.5em auto; display: block; float: none; }
+
+nav.main { width: 100%; background-color: #0D47A1; }
+    nav.main ul { padding: 0px; margin: 0px; }
+        nav.main ul > li { padding: 0px; margin: 0px; list-style-type: none; display: block; width: 100%; }
+            nav.main ul > li > a { padding: 0.5em 1em 0.5em 1em; font-size: 1.2em; color: #FFF; text-decoration: none; display: block; }
+                nav.main ul > li > a:hover { color: #E3F2FD; text-decoration: none; }
+            nav.main ul > li.selected > a { background-color: #1976D2; color: #FFF; }
+
+.page .row .container { padding-top: 0.5em; padding-bottom: 2em; display: table; }
+
+.container { width: 100%; margin: 0px auto; display: block; }
+
+.grid2_1, .grid2_2, .grid4_1, .grid4_2, .grid4_3, .grid4_4, .grid6_1, .grid6_2, .grid6_3, .grid6_4, .grid6_5, .grid6_6 { padding-left: 1em; padding-right: 1em; }
+
+
+
+@media (max-width: 911px) {
+    .page .main img { max-width: 750px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 800px) {
+    .page .main img { max-width: 670px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 720px) {
+    .page .main img { max-width: 590px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 640px) {
+    .page .main img { max-width: 470px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 520px) {
+    .page .main img { max-width: 430px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 480px) {
+    header img.logo { width: 280px; height: auto; }
+    .page .main img { max-width: 280px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}
+
+@media (max-width: 320px) {
+    header img.logo { width: 260px; height: auto; }
+    .page .main img { max-width: 260px !important; height: auto !important; display: block !important; float: none !important; padding: 0px !important; margin: 0px !important; overflow: hidden; }
+}

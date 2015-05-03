@@ -1,0 +1,92 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Query Language</h2>
+
+<p>
+The query language is the counterpart of the base language. It contains some statements for querying data in tables in Interface Booster.
+</p>
+
+<p>
+Many keywords that are used in the query language are already known from SQL. But the Synery query language has a little bit a different concept than SQL. In Synery queries are executed from top down.
+</p>
+
+<p>
+A synery query could look like this:
+</p>
+
+<textarea class="editor" data-editor="synery">
+\myTables\currentStudents =
+    FROM \people AS p
+    WHERE p.IsMale == TRUE
+    LEFT JOIN \address AS adr COMPARE adr.IdPerson, adr.IsPrimary TO p.Id, TRUE
+    SELECT IdPerson = p.Id, FullName = p.FirstName + " " + p.LastName, adr.City
+    JOIN \semesterRegistrations AS reg COMPARE reg.IdPerson TO IdPerson
+    JOIN \semesters AS sem COMPARE sem.Id TO reg.IdSemester
+    WHERE sem.IsSpringSemester == TRUE 
+        AND sem.DateOfStart >= DATETIME(2014, 1, 1)
+        AND sem.DateOfEnd <= DATETIME(2014, 12, 31)
+    SELECT FullName, reg.DateOfRegistration, City;
+</textarea>
+
+<p>
+Here the explanations for each line of the query statement from above:
+</p>
+
+<ul>
+    <li>
+        <b>Line 1</b><br />
+        A table statement that assigns the result of the following query to the given table <code>\myTables\currentStudents</code>.
+    </li>
+    <li>
+        <b>Line 2</b><br />
+        A Synery query always starts with a <code>FROM</code> command. It specifies the first table (in this case <code>\people</code>) that is used as entry point.
+    </li>
+    <li>
+        <b>Line 3</b><br />
+        A filter command. In this query it removes all female people by looking for row with <code>IsMale == TRUE</code>. Please notice that Synery uses two equality signs <code>==</code> for a comparison.
+    </li>
+    <li>
+        <b>Line 4</b><br />
+        This <code>LEFT JOIN</code> command loads the primary address of each person without removing people which don't have a primary address.
+    </li>
+    <li>
+        <b>Line 5</b><br />
+        A first <code>SELECT</code> command that reduces the current result set to three columns. All columns that are not listed in this <code>SELECT</code> command are removed from the result set and cannot be used anymore in the following commands.
+    </li>
+    <li>
+        <b>Line 6</b><br />
+        A first <code>JOIN</code> command that reduces the current result set to these people which have a semester registration.
+    </li>
+    <li>
+        <b>Line 7</b><br />
+        The second <code>JOIN</code> command that loads the related semester data.
+    </li>
+    <li>
+        <b>Line 8-10</b><br />
+        Another <code>WHERE</code> command filters for a spring semester in 2014.
+    </li>
+    <li>
+        <b>Line 11</b><br />
+        The final <code>SELECT</code> command that reduces the result set to three columns.
+    </li>
+</ul>
+
+<h3>Comming from SQL</h3>
+
+<p>
+SQL developers would notice that there are multiple <code>SELECT</code> and <code>WHERE</code> commands. That's possible because the query is executed from top down. After each command a new result set is built. This concept brings the developer closer to the single steps of the query execution.
+</p>
+
+<p>
+This has a few benefits like better control over the execution, sequential debugging and the fact that the developer has the optimization in it's own hands.
+</p>
+    
+
+</section>
+</div>
+</div>

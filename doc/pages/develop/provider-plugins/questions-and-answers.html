@@ -1,0 +1,59 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Questions and Anwers</h2>
+
+            <p>
+                A Question is used to specify a parameter. An Answer is the containers for the parameter value.
+            </p>
+
+            <p>
+                The Provider Plugin can "ask" the interface developer a few questions. Answering a questions can be optional or required.
+            </p>
+
+            <p>
+                Interface Booster checks whether all required questens are answered and whether the data types match.
+            </p>
+
+            <h3>The elements</h3>
+            
+            <p>
+                The following diagram shows all elements related to the Question and Answer:
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/question-and-answer-classes.png" class="imagelink" title="UML: Question and Answer overview">
+                    <img src="img/content/develop/provider-plugins/question-and-answer-classes.png" alt="UML: Question and Answer overview" />
+                </a>
+            </p>
+
+            <h3>Show me the Code</h3>
+
+            <p>
+                The following example shows how to create a Schema and a RecordSet with three fields and two records:
+            </p>
+            
+            <textarea class="editor" data-editor="csharp">
+<![CDATA["
+// Create a parameter "Personal.Data.Age"
+Question question = Question.New<int>("Age", path: new string[] { "Personal", "Data", }, isRequired: true, description: "How old are you?");
+
+// Create the answer (usually done by Interface Booster)
+Answer answer = new Answer(question, 27);
+"]]>
+            </textarea>
+
+            <p>
+                The result of this in a tabular form would look like this:
+            </p>
+            
+        </section>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Endpoints</h2>
+
+            <p>
+                A Provider Plugin defines its' operations by providing endpoints. Each <a href="#/docs/synery/provider-plugins/data-commands">data command</a> runs against an endpoint.
+            </p>
+
+            <p>
+                What endpoints are available and what commands are allowed is specified by the Provider Plugin.
+            </p>
+
+            <p>
+                The endpoint architecture of the Provider Plugin API is oriented on the architecture of <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful Webservices</a>.
+            </p>
+
+            <h3>Base Interface</h3>
+
+            <p>
+                The ProviderConnection contains a list of all available endpoints. Each endpoint must implement the interface <code>IEndpoint</code>.
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/endpoints-base-interface.png" class="imagelink" title="UML: Endpoint base interface">
+                    <img src="img/content/develop/provider-plugins/endpoints-base-interface.png" alt="UML: Endpoint base interface" />
+                </a>
+            </p>
+
+            <h3>Command Interfaces</h3>
+
+            <p>
+                To enable one or multiple commands on an endpoint it must implement the according command interfaces:
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/endpoints-command-interfaces.png" class="imagelink" title="UML: Endpoint command interfaces">
+                    <img src="img/content/develop/provider-plugins/endpoints-command-interfaces.png" alt="UML: Endpoint command interfaces" />
+                </a>
+            </p>
+
+            <h3>Download: UML Overview</h3>
+
+            <p>
+                This UML diagram (PDF) shows the important classes and interfaces used for the communication between Interface Booster and the Provider Plugin:
+            </p>
+
+            <p>
+                <a href="downloads/develop/provider_plugin_api-service_and_communication.pdf" title="UML: Endpoints, resources, requests, responses">
+                    <img src="img/content/develop/provider-plugins/t_provider_plugin_api-service_and_communication.png" alt="UML: Endpoints, resources, requests, responses" />
+                </a>
+                <br />
+                <a href="downloads/develop/provider_plugin_api-service_and_communication.pdf" title="UML: Endpoints, resources, requests, responses">
+                    <span class="label label-primary">Download: provider_plugin_api-service_and_communication.pdf</span>
+                </a>
+            </p>
+
+        </section>
+    </div>
+</div>

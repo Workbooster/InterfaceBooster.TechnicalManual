@@ -1,0 +1,61 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Functions <span class="label label-warning">draft</span></h2>
+
+<p>
+Synery supports functional programming. Like in other programming languages functions can take parameters and can have a return value.
+</p>
+
+<h3>Declaring Functions</h3>
+
+<p>
+Here are a few examples how to declare a function:
+</p>
+
+<textarea class="editor" data-editor="synery">
+// A simple function without return value and no parameters:
+doSomething()
+    // do something ...
+END
+
+// A function with a return value:
+STRING getSomething()
+    STRING text = "something";
+    
+    RETURN text;
+END
+
+// A function with a return value and two parameters:
+STRING concatText(STRING text1, STRING text2)
+    STRING result = text1 + text2;
+    
+    RETURN result;
+END
+</textarea>
+
+<p>
+Function declarations are only allowed in the global scope of a synery code file. For example you cannot declare a function inside of a function.
+</p>
+
+<h3>Calling Functions</h3>
+
+<p>
+Here are a few examples how to call the functions declared above:
+</p>
+
+<textarea class="editor" data-editor="synery">
+doSomething();
+
+STRING someText = getSomething();
+
+STRING moreText = concatText("Synery ", "is great!");
+</textarea>
+
+</section>
+</div>
+</div>

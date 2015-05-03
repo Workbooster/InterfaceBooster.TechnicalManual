@@ -1,0 +1,85 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Schemas and RecordSets</h2>
+
+            <p>
+                RecordSets are used to exchange structured data between the Provider Plugin and Interface Booster in a tabular form.
+            </p>
+
+            <p>
+                Schemas define the structure of the data.
+            </p>
+
+            <h3>The elements</h3>
+
+            <p>
+                The following diagram shows all elements related to the Schema and RecordSet:
+            </p>
+
+            <p>
+                <a href="img/content/develop/provider-plugins/schema-and-recordset-classes.png" class="imagelink" title="UML: Schema and RecordSet overview">
+                    <img width="640" src="img/content/develop/provider-plugins/schema-and-recordset-classes.png" alt="UML: Schema and RecordSet overview" />
+                </a>
+            </p>
+
+            <h3>Show me the Code</h3>
+
+            <p>
+                The following example shows how to create a Schema and a RecordSet with three fields and two records:
+            </p>
+
+            <textarea class="editor" data-editor="csharp">
+// create a schema with three fields
+Schema schema = new Schema();
+schema.Fields.Add(new Field("Id", typeof(int), isNullable: false) { IsKey = true, });
+schema.Fields.Add(new Field("Firstname", typeof(string), isNullable: true));
+schema.Fields.Add(new Field("Lastname", typeof(string), isNullable: true));
+
+// create the records
+IEnumerable<object[]> data = new List<object[]>() { 
+    new object[] { 11, "Mike", "Moor" },
+    new object[] { 17, "Angela", "Smith" },
+};
+
+// the combination of the Schema and the records results in a RecordSet
+RecordSet recordSet = new RecordSet(schema, data);
+            </textarea>
+
+            <p>
+                The result of this in a tabular form would look like this:
+            </p>
+
+
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>Id (INT)</th>
+                        <th>Firstname (STRING)</th>
+                        <th>Lastname (STRING)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>11</td>
+                        <td>Mike</td>
+                        <td>Moor</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Angela</td>
+                        <td>Smith</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+    </div>
+</div>

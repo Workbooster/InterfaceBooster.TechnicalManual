@@ -1,0 +1,79 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Execute <span class="label label-warning">draft</span></h2>
+
+<p>
+The EXECUTE-Command is used to export modified data to a foreign system or a file by using a connection (see: <a href="#/docs/synery/provider-plugins/connect">Connect</a>).
+</p>
+
+<h3>The EXECUTE-Command</h3>
+
+<p>
+A EXECUTE-command always uses this pattern:
+</p>
+
+<p>
+    <code class="block">
+        <b>EXECUTE</b> [endpoint_path] <br />
+            <span class="tab"><b>SET</b> ( [parameter_name] = [expression] , ... ) </span><br />
+            <span class="tab"><b>GET</b> ( [value_name] AS [local_variable_name] , ... ) </span><br />
+            <span class="tab">{Nested Commands} </span><br />
+        <b>END</b>
+    </code>
+</p>
+
+<p>
+Description:
+</p>
+
+<dl class="definition">
+    <dt>EXECUTE [endpoint_path]</dt>
+    <dd>
+        <em>Required.</em>
+        Takes a path of an endpoint starting with two backslashes <code>\\</code>. The identifier starts with the name of the connection followed by the path to the endpoint. An example: <code>\\myConnection\someCategory\endpointName</code>.
+    </dd>
+    <dt>SET ( [parameter_name] = [expression] , ... ) </dt>
+    <dd>
+        <em>Optional.</em>
+        The SET-argument is used to specify a comma-separated key-value parameters list. These parameters are passed to the provider plugin within the request.
+    </dd>
+    <dt>GET ( [value_name] AS [local_variable_name] , ... )</dt>
+    <dd>
+        The opposite of the SET-argument. The GET-argument specifies some values that are requested from the provider plugin.
+    </dd>
+    <dt>{Nested Commands}</dt>
+    <dd>
+        <em>Optional.</em>
+        Some nested commands.
+    </dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>
+Here you see three examples of how an export could be performed:
+</p>
+
+<textarea class="editor" data-editor="synery">
+EXECUTE \\webshop\ClearCache END
+
+INT IdArticle;
+EXECUTE \\erp\IncerementCounter 
+    SET (EntityName = "Article") 
+    GET (NextId AS IdArticle)
+END
+
+EXECUTE \\erp\RefreshStock
+    READ ArticleStock TO \current\ArticleStock  FIELDS (Id, TotalAmount) END
+END
+</textarea>
+    
+
+</section>
+</div>
+</div>
