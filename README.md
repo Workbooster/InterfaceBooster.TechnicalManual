@@ -36,7 +36,11 @@ This document is licensed under the terms of the GNU Free Documentation License.
 
 Workbooster GmbH<br/>
 Obermuelistrasse 85<br/>
+<<<<<<< HEAD
 8320 Fehraltorf (Switzerland)<br/>
+=======
+CH-8320 Fehraltorf<br/>
+>>>>>>> 872ff18127c3b1e2cadcabcf5d00e3464e59b3c3
 
 Web: www.workbooster.ch<br/>
 E-Mail: info@workbooster.ch<br/>
