@@ -1,11 +1,13 @@
-Interface Booster: Technical Manual
+Interface Booster: Website
 ===================================
 
-This repository contains the technical manual of the Interface Booster environment and its scripting language "Synery". It can be used as reference for developers and technicians.
+This repository contains the website and the technical manual of the Interface Booster environment and its scripting language "Synery". 
+
+The technical manual can be used as reference for developers and technicians.
 
 ## Online
 
-The documentation isn't available online yet. Coming soon...
+Visit the page at: [www.interfacebooster.com](http://interfacebooster.com/)
 
 ## Content
 
@@ -33,8 +35,8 @@ This document is licensed under the terms of the GNU Free Documentation License.
 ## Contacts
 
 Workbooster GmbH<br/>
-Pfarrain 3a<br/>
-8604 Volketswil<br/>
+Obermuelistrasse 85<br/>
+8320 Fehraltorf (Switzerland)<br/>
 
 Web: www.workbooster.ch<br/>
 E-Mail: info@workbooster.ch<br/>
