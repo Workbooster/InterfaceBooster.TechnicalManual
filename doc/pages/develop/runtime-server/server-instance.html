@@ -1,0 +1,65 @@
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Server Instance <span class="label label-warning">draft</span></h2>
+
+            <p>
+                The Runtime Server can run different Server Instances. A Server Instance is defined by it's file storage directory.
+            </p>
+
+            <p>
+                Starting a Server: <code>RuntimeServer.exe "C:\interfacebooster\instance1"</code>
+            </p>
+
+            <p>
+                By changing the first parameter the Server Instance is changed.
+            </p>
+
+            <h3>File System Structure</h3>
+
+            <p>The file structure of a Server Instance looks like that:</p>
+
+<textarea class="editor" data-editor="code">
+{Root}
+|-- instance.xml
+|-- definitions
+    |-- [Definition GUID]
+        |-- db
+            |-- data.xml
+            |-- tables
+                |-- ...
+        |-- definition.xml
+        |-- code
+            |-- [Job GUID].syn
+            |-- [Job GUID].syn
+            |-- someIncludeFile1.syn
+            |-- subdirectory
+                |-- someIncludeFile2.syn
+            |-- ...
+    |-- [Definition GUID]
+    |-- ...
+|-- runtime
+    |-- logs
+        |-- [Task GUID]
+            |-- task.xml
+            |-- [YYYY-MM-dd_hh:mm:ss].log
+    |-- plugins
+        |-- library_plugins
+            |-- [Plugin GUID]
+                |-- plugin.xml
+            |-- [Plugin GUID]
+            |-- ...
+        |-- provider_plugins
+            |-- [Plugin GUID]
+                |-- plugin.xml
+            |-- [Plugin GUID]
+            |-- ...
+</textarea>
+
+        </section>
+    </div>
+</div>
