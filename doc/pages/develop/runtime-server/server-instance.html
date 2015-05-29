@@ -28,10 +28,6 @@
 |-- instance.xml
 |-- definitions
     |-- [Definition GUID]
-        |-- db
-            |-- data.xml
-            |-- tables
-                |-- ...
         |-- definition.xml
         |-- code
             |-- [Job GUID].syn
@@ -42,11 +38,7 @@
             |-- ...
     |-- [Definition GUID]
     |-- ...
-|-- runtime
-    |-- logs
-        |-- [Task GUID]
-            |-- task.xml
-            |-- [YYYY-MM-dd_hh:mm:ss].log
+|-- environment
     |-- plugins
         |-- library_plugins
             |-- [Plugin GUID]
@@ -58,6 +50,18 @@
                 |-- plugin.xml
             |-- [Plugin GUID]
             |-- ...
+|-- runtime
+    |-- dbs
+        |-- [Definition GUID]
+            |-- data.xml
+            |-- tables
+                |-- ...
+        |-- [Definition GUID]
+        |-- ...
+    |-- logs
+        |-- [Task GUID]
+            |-- task.xml
+            |-- [YYYY-MM-dd_hh:mm:ss].log
 </textarea>
 
         </section>

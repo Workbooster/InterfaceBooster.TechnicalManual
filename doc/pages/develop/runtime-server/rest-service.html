@@ -11,7 +11,7 @@
                 The Runtime Server uses a RESTful web service to communicate with clients.
             </p>
 
-            <h3>/definition</h3>
+            <h3>/development/definition</h3>
 
             <p>An interface definition describes an interface project that contains one or many jobs.</p>
 
@@ -29,6 +29,10 @@ interface InterfaceDefinition
     DateOfLastChange?: Date;            // Date and time when definition last was modified
     Version: string;                    // Version of the definition
     RequiredRuntimeVersion: string;     // Version of the Interface Booster runtime environment
+
+    Jobs: Job[];                                // An array of all attached jobs
+    ProviderPlugins: ProviderPluginReference[]; // An array of required Provider Plugin instances
+    LibraryPlugins: LibraryPluginReference[];   // An array of required Library Plugins
 }
 
 interface Job 
@@ -38,75 +42,111 @@ interface Job
     Description: string;                // What does the job do?
     EstimatedDurationRemarks: string;   // A few words about the estimated duration of the execution
 }
+
+interface ProviderPluginReference
+{
+    SyneryIdentifier: string;           // Required - name used in Synery code to work with the plugin.
+    PluginGuid: string;                 // Required - identifier of the plugin.
+    PluginInstanceGuid: string;         // Required - identifier of the plugin instance.
+                                        // A privder plugin can have multiple instances.
+}
+
+interface LibraryPluginReference
+{
+    SyneryIdentifier: string;           // Required - name used in Synery code to work with the plugin.
+    PluginGuid: string;                 // Required - identifier of the plugin.
+}
 </textarea>
 
             <h4>Routes</h4> 
             
             <dl class="definition">
-                <dt><span class="rest get">GET</span> /definition</dt>
+                <dt><span class="rest get">GET</span> /development/definition</dt>
                 <dd>
                     Returns an array of interface definitions.
                 </dd>
-                <dt><span class="rest get">GET</span> /definition/{definitionId}</dt>
+                <dt><span class="rest get">GET</span> /development/definition/{definitionId}</dt>
                 <dd>
                     Returns the interface definition with the given Guid.
                 </dd>
-                <dt><span class="rest post">POST</span> /definition</dt>
+                <dt><span class="rest post">POST</span> /development/definition</dt>
                 <dd>
                     Creates a new interface definition.
                 </dd>
-                <dt><span class="rest put">PUT</span> /definition/{definitionId}</dt>
+                <dt><span class="rest put">PUT</span> /development/definition/{definitionId}</dt>
                 <dd>
                     Updates the interface definition with the given Guid.
                 </dd>
-                <dt><span class="rest get">GET</span> /definition/{definitionId}/job</dt>
+                <dt><span class="rest get">GET</span> /development/definition/{definitionId}/job</dt>
                 <dd>
                     Returns an array of jobs of the interface definition with the given guid.
                 </dd>
-                <dt><span class="rest get">GET</span> /definition/{definitionId}/job/{jobId}</dt>
+                <dt><span class="rest get">GET</span> /development/definition/{definitionId}/job/{jobId}</dt>
                 <dd>
                     Returns the job with the given <code>jobId</code> (Guid) within the interface definition with the given <code>jobId</code> (Guid).
                 </dd>
-                <dt><span class="rest get">GET</span> /definition/{definitionId}/job/{jobId}/content</dt>
+                <dt><span class="rest get">GET</span> /development/definition/{definitionId}/job/{jobId}/content</dt>
                 <dd>
                     Returns the Synery Code of the job with the given <code>jobId</code> (Guid) within the interface definition with the given <code>definitionId</code> (Guid).
                 </dd>
-                <dt><span class="rest post">POST</span> /definition/{definitionId}/job/{jobId}/content</dt>
+                <dt><span class="rest post">POST</span> /development/definition/{definitionId}/job/{jobId}/content</dt>
                 <dd>
                     Overwrites the Synery Code of the job with the given <code>jobId</code> (Guid) within the interface definition with the given <code>definitionId</code> (Guid).
                 </dd>
             </dl>
 
-            <h3>/runtime/plugin</h3>
+
+
+            <h3>/environment/plugin</h3>
 
             <p>Globally available plugins that can be used/referenced in all interface definitions.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface ProviderPlugin
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+    Instances: ProviderPluginInstance[] // A Provider Plugin can have multiple instances 
+                                        // (e.g. different API version)
+}
+
+interface ProviderPluginInstance
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+}
+</textarea>
 
             <h4>Routes</h4> 
 
             <dl class="definition">
-                <dt><span class="rest get">GET</span> /runtime/plugin/providerplugin</dt>
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin</dt>
                 <dd>
                     Returns an array of all Provider Plugins installed.
                 </dd>
-                <dt><span class="rest post">POST</span> /runtime/plugin/providerplugin</dt>
+                <dt><span class="rest post">POST</span> /environment/plugin/providerplugin</dt>
                 <dd>
                     Content: <a href="#/develop/provider-plugins/file-structure">Provider Plugin Zip-File</a><br />
                     Adds the Provider Plugin form the given ZIP-File.
                 </dd>
-                <dt><span class="rest delete">DELETE</span> /runtime/plugin/providerplugin/{pluginId}</dt>
+                <dt><span class="rest delete">DELETE</span> /environment/plugin/providerplugin/{pluginId}</dt>
                 <dd>
                     Removes the Provider Plugin with the given <code>pluginId</code> (Guid).
                 </dd>
-                <dt><span class="rest get">GET</span> /runtime/plugin/libraryplugin</dt>
+                <dt><span class="rest get">GET</span> /environment/plugin/libraryplugin</dt>
                 <dd>
                     Returns an array of all Library Plugins installed.
                 </dd>
-                <dt><span class="rest post">POST</span> /runtime/plugin/libraryplugin</dt>
+                <dt><span class="rest post">POST</span> /environment/plugin/libraryplugin</dt>
                 <dd>
                     Content: <a href="#/develop/library-plugins/file-structure">Library Plugin Zip-File</a><br />
                     Adds the Library Plugin form the given ZIP-File.
                 </dd>
-                <dt><span class="rest delete">DELETE</span> /runtime/plugin/libraryplugin/{pluginId}</dt>
+                <dt><span class="rest delete">DELETE</span> /environment/plugin/libraryplugin/{pluginId}</dt>
                 <dd>
                     Removes the Provider Plugin with the given <code>pluginId</code> (Guid).
                 </dd>
