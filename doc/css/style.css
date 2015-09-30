@@ -9,9 +9,16 @@ section.main dl.definition { width: 95%; margin-bottom: 2em; }
     section.main dl.definition > dd { padding: 4px 4px 4px 4px; margin: 4px 0px 12px 40px; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
 
 section.main table.data { font-size: 0.9em; border-collapse: collapse; margin: 24px 0px 24px 0px; width: 95%; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
-    section.main table.data > th, table.data > td { border: 1px solid #ECECEC; padding: 4px 12px 4px 12px; }
+    section.main table.data th, table.data td { border: 1px solid #ECECEC; padding: 4px 12px 4px 12px; }
     section.main table.data > thead { background-color: #FAFAFA; text-align: left; }
         section.main table.data > thead tr:first-child { background-color: #f0f0f0; font-size: 1.1em; }
+
+section.main table.definition { font-size: 0.9em; border-collapse: collapse; margin: 24px 0px 24px 0px; width: 95%; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
+    section.main table.definition th, table.definition td { border: 1px solid #ECECEC; padding: 4px 12px 4px 12px; }
+    section.main table.definition tr { border-bottom: 1px solid #ECECEC; }
+    section.main table.definition td.head { background-color: #FAFAFA; font-size: 1.1em; font-weight: bold; }
+    section.main table.definition > thead { background-color: #FAFAFA; text-align: left; }
+        section.main table.definition > thead tr:first-child { background-color: #f0f0f0; font-size: 1.1em; }
 
 section.main .editor { margin: 24px 0px 24px 0px; width: 95%; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
 section.main .imagelink img { -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
