@@ -1,0 +1,145 @@
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>REST Service Introduction</h2>
+
+            <p>
+                This page offers an introduction to the REST (or <b>RE</b>presentational <b>S</b>tate <b>T</b>ransfer) API of the Interface Booster Runtime Server. This API is either used to manage Interface Definitions and for controlling the runtime of the server.
+            </p>
+
+            <h3>HTTP Verbs</h3>
+
+            <p>The API is RESTful, meaning that the HTTP verbs are used for specific actions.</p>
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span></dt>
+                <dd>
+                    Used for retrieving resources.
+                </dd>
+                <dt><span class="rest post">POST</span></dt>
+                <dd>
+                    Used for creating resources, or to link resources.
+                </dd>
+                <dt><span class="rest put">PUT</span></dt>
+                <dd>
+                    Used for updating resources.
+                </dd>
+                <dt><span class="rest delete">DELETE</span></dt>
+                <dd>
+                    Used to remove a resource from a collection.
+                </dd>
+            </dl>
+
+            <h3>Mime Type</h3>
+
+            <p>This service supports JSON and XML mime types. This can be controlled over the HTTP header.</p>
+
+            <p>The default mime type is JSON. The default character encoding standard is set to UTF-8.</p>
+
+            <p>To receive data as XML you can use:</p>
+
+<textarea class="editor" data-editor="code">
+    Accept: application/xml; charset=utf-8
+</textarea>
+
+            <p>To send XML data you can use:</p>
+
+<textarea class="editor" data-editor="code">
+    Content-Type: application/xml; charset=utf-8
+</textarea>
+
+            <h3>HTTP Status Codes</h3>
+
+            <p>The Interface Booster Runtime API returns HTTP status codes for every request.</p>
+
+            <table class="definition">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>HTTP Operation</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="head">200</td>
+                        <td>OK</td>
+                        <td>GET, PUT, DELETE</td>
+                        <td>No error, operation successful.</td>
+                    </tr>
+                    <tr>
+                        <td class="head">201</td>
+                        <td>Created</td>
+                        <td>POST</td>
+                        <td>Successful creation of a resource.</td>
+                    </tr>
+                    <tr>
+                        <td class="head">204</td>
+                        <td>No Content</td>
+                        <td>GET, POST, PUT, DELETE</td>
+                        <td>The request was processed successfully, but no response body is needed.</td>
+                    </tr>
+                    <tr>
+                        <td class="head">400</td>
+                        <td>Bad Request</td>
+                        <td>GET, POST, PUT, DELETE</td>
+                        <td>Malformed syntax, semantic error in provided data or a bad query.</td>
+                    </tr>
+                    <tr>
+                        <td class="head">404</td>
+                        <td>Not Found</td>
+                        <td>GET, POST, PUT, DELETE</td>
+                        <td>Resource not found.</td>
+                    </tr>
+                    <tr>
+                        <td class="head">500</td>
+                        <td>Server Error</td>
+                        <td>GET, POST, PUT, DELETE</td>
+                        <td>Internal server error.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h3>Pagination</h3>
+
+            <p>All services that have an items list as primary response are paginated. This means that you can control the number of items and the offset by giving some query string parameters</p>
+
+            <p><strong>Supported parameters:</strong></p>
+            <ul>
+                <li>
+                    <strong>Limit</strong> (int - default: 20)<br />
+                    Limits the number of returned rows.
+                </li>
+                <li>
+                    <strong>Offset</strong> (int - default: 0)<br />
+                    Position from where items should be returned.
+                </li>
+            </ul>
+
+            <p>For example to get all items for page no. 5 you have to set <code>Limit=5</code> and <code>Offset=20</code>. This would return the items 21 to 25.</p>
+
+<textarea class="editor" data-editor="typescript">
+interface PaginatedList&lt;T&gt; {
+    PaginationInfo: PaginationInfo; // On GET - Some usefull counter values for pagination.
+    Items: Array&lt;T&gt;;                // An array that contains the requested items
+}
+
+interface PaginationInfo
+{
+    TotalItems: number;                // Integer - Total number of available items
+    TotalPages: number;                // Integer - Total number of pages based on the given limit
+    ItemsPerPage: number;              // Integer - equals to limit
+    CurrentPage: number;               // Integer - (e.g. Limit=5 and Offset=20 leads to CurrentPage=5)
+}
+</textarea>
+
+
+        </section>
+    </div>
+</div>

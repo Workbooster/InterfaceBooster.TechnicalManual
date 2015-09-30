@@ -27,6 +27,7 @@ interface InterfaceDefinition
     Author: string;                     // Author of the definition
     DateOfCreation?: Date;              // Date and time when definition was created
     DateOfLastChange?: Date;            // Date and time when definition last was modified
+                                        // (updated by the server)
     Version: string;                    // Version of the definition
     RequiredRuntimeVersion: string;     // Version of the Interface Booster runtime environment
 
@@ -47,14 +48,17 @@ interface ProviderPluginReference
 {
     SyneryIdentifier: string;           // Required - name used in Synery code to work with the plugin.
     PluginGuid: string;                 // Required - identifier of the plugin.
+    PluginName: string;                 // Optional - copy of the plugins name.
     PluginInstanceGuid: string;         // Required - identifier of the plugin instance.
                                         // A privder plugin can have multiple instances.
+    PluginInstanceName: string;         // Optional - copy of the instances name.
 }
 
 interface LibraryPluginReference
 {
     SyneryIdentifier: string;           // Required - name used in Synery code to work with the plugin.
     PluginGuid: string;                 // Required - identifier of the plugin.
+    PluginName: string;                 // Optional - copy of the plugins name.
 }
 </textarea>
 
@@ -77,9 +81,25 @@ interface LibraryPluginReference
                 <dd>
                     Updates the interface definition with the given Guid.
                 </dd>
+                <dt><span class="rest delete">DELETE</span> /development/definition/{definitionId}</dt>
+                <dd>
+                    Deletes the interface definition with the given Guid.
+                </dd>
                 <dt><span class="rest get">GET</span> /development/definition/{definitionId}/job</dt>
                 <dd>
                     Returns an array of jobs of the interface definition with the given guid.
+                </dd>
+                <dt><span class="rest post">POST</span> /development/definition/{definitionId}/job</dt>
+                <dd>
+                    Takes one <code>Job</code> and creates it.
+                </dd>
+                <dt><span class="rest put">PUT</span> /development/definition/{definitionId}/job/{jobId}</dt>
+                <dd>
+                    Takes one <code>Job</code> and updates an existing job with the given job id.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /development/definition/{definitionId}/job/{jobId}</dt>
+                <dd>
+                    Deletes an existing job with the given job id.
                 </dd>
                 <dt><span class="rest get">GET</span> /development/definition/{definitionId}/job/{jobId}</dt>
                 <dd>
@@ -92,6 +112,83 @@ interface LibraryPluginReference
                 <dt><span class="rest post">POST</span> /development/definition/{definitionId}/job/{jobId}/content</dt>
                 <dd>
                     Overwrites the Synery Code of the job with the given <code>jobId</code> (Guid) within the interface definition with the given <code>definitionId</code> (Guid).
+                </dd>
+            </dl>
+
+
+
+            <h3>/database</h3>
+
+            <p>Is used to access the databases of the interface definitions.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface TableSchema
+{
+    Id: string;         // The name without backslashes (only used for the web service)
+    Name: string;       // The identifier of the table used in Synery
+    Fields: TableSchemaField[];     // A list of fields (table columns)
+}
+
+interface TableSchemaField
+{
+    Name: string;                   // Field / Table column name
+    SyneryType: string;             // Name of the Synery Type (e.g. "STRING" or "BOOL")
+    UnterlyingDotNetType: string;   // Qualified .NET CLR Type name
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table</dt>
+                <dd>
+                    Returns an array of <code>TableSchema</code> objects which contain the definition/structure of each table.
+                </dd>
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table/{tableId}</dt>
+                <dd>
+                    Returns a <code>TableSchema</code> object for the given table.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /database/{definitionId}/table/{tableId}</dt>
+                <dd>
+                    Deletes the given table.
+                </dd>
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table/{tableId}/data</dt>
+                <dd>
+                    Returns a <code>PaginatedList&lt;Array&lt;any&gt;&gt;</code> with a two-dimensional array. The first dimension contains the table rows and the second dimention the field values.
+                </dd>
+            </dl>
+
+
+
+            <h3>/environment/instance</h3>
+
+            <p>Provides some usefull information about the current server instance and the runtime environment.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface ServerInstance
+{
+    Versions: ServerInstanceVersions;   // Version information for the current service.
+}
+
+interface ServerInstanceVersions
+{
+    Core: string;                   // Assembly version of "InterfaceBooster.Core"
+    Interfaces: string;             // Assembly version of "InterfaceBooster.Common.Interfaces"
+    RuntimeController: string;      // Assembly version of "InterfaceBooster.RuntimeController"
+    Service: string;                // Assembly version of "InterfaceBooster.Runtime.Business.Service"
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /environment/instance</dt>
+                <dd>
+                    Returns a <code>ServerInstance</code> object that contains some information about the current server instance.
                 </dd>
             </dl>
 
@@ -114,6 +211,13 @@ interface ProviderPlugin
 }
 
 interface ProviderPluginInstance
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+}
+
+interface LibraryPlugin
 {
     Guid: string;
     Name: string;
@@ -183,7 +287,9 @@ interface ProviderPluginInstance
 interface Task 
 {
     Guid?: string;                      // Optional - is generated by the server
-    Status: string;                     // Possible values: "Running", "FinishedWithError", "FinishedWithSuccess"
+    Status?: string;                     // Possible values: "New", "Running", "FinishedWithError", "FinishedWithSuccess"
+    RunImmediately?: boolean            // On creation: Runs the task immediately.
+    DateOfCreation?: Date               // Date and time when the task was created
     DateOfStart?: Date;                 // Date and time when the task started
     DateOfEnd?: Date;                   // Date and time when the task finished
     InterfaceDefinitionGuid: string;    // The identifier of the Interface Definition
@@ -193,9 +299,9 @@ interface Task
 
 interface Log
 {
-    Type: string;                       // Possible values: "Debug", "Infor", "Warning", "Error"
-    Message: string;                    // The log message text
+    Channel: string;                    // Channel name (e.g "Debug", "Info", "Warning", "Error")
     DateOfCreation: Date;               // Date and time when the log entry was created
+    Message: string;                    // The log message text
 }
 </textarea>
 
@@ -206,6 +312,10 @@ interface Log
                 <dd>
                     Returns an array of tasks.
                 </dd>
+                <dt><span class="rest get">GET</span> /runtime/task/byDefinition/{definitionId}</dt>
+                <dd>
+                    Returns an array of tasks related to the given definition
+                </dd>
                 <dt><span class="rest get">GET</span> /runtime/task/{taskId}</dt>
                 <dd>
                     Returns the task with the given Guid.
@@ -214,12 +324,20 @@ interface Log
                 <dd>
                     Creates a new task.
                 </dd>
+                <dt><span class="rest post">POST</span> /runtime/task/{taskId}/run</dt>
+                <dd>
+                    Executes the existing task (a task can only be executed one time).
+                </dd>
                 <dt><span class="rest get">GET</span> /runtime/task/{taskId}/log</dt>
                 <dd>
                     Returns an array of log entries.
 
                     <p><strong>Parameters:</strong></p>
                     <ul>
+                        <li>
+                            Channel (string)<br />
+                            Filter for a specific channel.
+                        </li>
                         <li>
                             CreatedAfter (Date)<br />
                             Date and time to filter for log entries that are newer than the given value.

@@ -1,0 +1,60 @@
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Database</h2>
+
+            <p>
+                Services related to the Synery Database.
+            </p>
+            
+            <h3>/database</h3>
+
+            <p>Is used to access the databases of the interface definitions.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface TableSchema
+{
+    Id: string;         // The name without backslashes (only used for the web service)
+    Name: string;       // The identifier of the table used in Synery
+    Fields: TableSchemaField[];     // A list of fields (table columns)
+}
+
+interface TableSchemaField
+{
+    Name: string;                   // Field / Table column name
+    SyneryType: string;             // Name of the Synery Type (e.g. "STRING" or "BOOL")
+    UnterlyingDotNetType: string;   // Qualified .NET CLR Type name
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table</dt>
+                <dd>
+                    Returns an array of <code>TableSchema</code> objects which contain the definition/structure of each table.
+                </dd>
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table/{tableId}</dt>
+                <dd>
+                    Returns a <code>TableSchema</code> object for the given table.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /database/{definitionId}/table/{tableId}</dt>
+                <dd>
+                    Deletes the given table.
+                </dd>
+                <dt><span class="rest get">GET</span> /database/{definitionId}/table/{tableId}/data</dt>
+                <dd>
+                    Returns a <code>PaginatedList&lt;Array&lt;any&gt;&gt;</code> with a two-dimensional array. The first dimension contains the table rows and the second dimention the field values.
+                </dd>
+            </dl>
+
+
+        </section>
+    </div>
+</div>

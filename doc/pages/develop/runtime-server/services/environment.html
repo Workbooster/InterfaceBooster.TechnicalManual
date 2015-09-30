@@ -1,0 +1,248 @@
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>Environment</h2>
+
+            <p>
+                Services relating to the server instance environment.
+            </p>
+
+            <h3>/environment/instance</h3>
+
+            <p>Provides some usefull information about the current server instance and the runtime environment.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface ServerInstance
+{
+    Versions: ServerInstanceVersions;   // Version information for the current service.
+}
+
+interface ServerInstanceVersions
+{
+    Core: string;                   // Assembly version of "InterfaceBooster.Core"
+    Interfaces: string;             // Assembly version of "InterfaceBooster.Common.Interfaces"
+    RuntimeController: string;      // Assembly version of "InterfaceBooster.RuntimeController"
+    Service: string;                // Assembly version of "InterfaceBooster.Runtime.Business.Service"
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /environment/instance</dt>
+                <dd>
+                    Returns a <code>ServerInstance</code> object that contains some information about the current server instance.
+                </dd>
+            </dl>
+
+
+
+            <h3>/environment/plugin</h3>
+
+            <p>Globally available plugins that can be used/referenced in all interface definitions.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface ProviderPlugin
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+    Instances: ProviderPluginInstance[] // A Provider Plugin can have multiple instances 
+                                        // (e.g. different API version)
+}
+
+interface ProviderPluginInstance
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+}
+
+interface LibraryPlugin
+{
+    Guid: string;
+    Name: string;
+    Description: string;
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin</dt>
+                <dd>
+                    Returns an array of all Provider Plugins installed.
+                </dd>
+                <dt><span class="rest post">POST</span> /environment/plugin/providerplugin</dt>
+                <dd>
+                    Content: <a href="#/develop/provider-plugins/file-structure">Provider Plugin Zip-File</a><br />
+                    Adds the Provider Plugin form the given ZIP-File.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /environment/plugin/providerplugin/{pluginId}</dt>
+                <dd>
+                    Removes the Provider Plugin with the given <code>pluginId</code> (Guid).
+                </dd>
+                <dt><span class="rest get">GET</span> /environment/plugin/libraryplugin</dt>
+                <dd>
+                    Returns an array of all Library Plugins installed.
+                </dd>
+                <dt><span class="rest post">POST</span> /environment/plugin/libraryplugin</dt>
+                <dd>
+                    Content: <a href="#/develop/library-plugins/file-structure">Library Plugin Zip-File</a><br />
+                    Adds the Library Plugin form the given ZIP-File.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /environment/plugin/libraryplugin/{pluginId}</dt>
+                <dd>
+                    Removes the Provider Plugin with the given <code>pluginId</code> (Guid).
+                </dd>
+            </dl>
+
+
+
+            <h3>/environment/plugin/providerplugin/{pluginId}/{instanceId}</h3>
+
+            <p>Globally available plugins that can be used/referenced in all interface definitions.</p>
+
+            <h4>Models</h4> 
+
+<textarea class="editor" data-editor="typescript">
+interface ConnectionSettings
+{
+    Answers: Answer[];
+}
+
+interface ConnectionInfo
+{
+    ProviderPluginGuid: string;
+    ProviderPluginInstanceGuid: string;
+    Instances: Endpoint[];  // A Connection can have multiple Endpoints
+}
+
+interface Endpoint
+{
+    Id: string;     // Name and Path separated by "/"
+    Name: string;
+    Path: string[];
+    Description: string;
+    Resource: Resource;
+    Type: string;   // "READ", "UPDATE", "CREATE", "SAVE", "DELETE", "EXECUTE"
+}
+
+interface Resource
+{
+    Name: string;
+    Description: string;
+    SubResources: Resource[];
+    Type: string;   // "READ", "UPDATE", "CREATE", "SAVE", "DELETE", "EXECUTE"
+}
+
+interface ReadResource extends Resource
+{
+    Schema: Schema;
+    Questions: Question[];
+    FilterDefinitions: FilterDefinition[];
+}
+
+interface UpdateResource extends Resource
+{
+    Schema: Schema;
+    Questions: Question[];
+    FilterDefinitions: FilterDefinition[];
+}
+
+interface CreateResource extends Resource
+{
+    Schema: Schema;
+    Questions: Question[];
+}
+
+interface SaveResource extends Resource
+{
+    Schema: Schema;
+    Questions: Question[];
+}
+
+interface DeleteResource extends Resource
+{
+    Schema: Schema;
+    Questions: Question[];
+    FilterDefinitions: FilterDefinition[];
+}
+
+interface ExecuteResource extends Resource
+{
+    Questions: Question[];
+    ReturnValues: ValueDefinition[];
+}
+
+interface Question
+{
+    Id: string;     // Name and Path separated by "."
+    Description: string;
+    IsRequired: boolean;
+    ExpectedType: string;   // Name of the Synery Type (e.g. "STRING" or "BOOL")
+}
+
+interface Answer
+{
+    Question: Question;
+    Value: any;
+}
+
+interface ValueDefinition
+{
+    Name: string;
+    Type: string;   // Name of the Synery Type (e.g. "STRING" or "BOOL")
+}
+
+interface Schema
+{
+    Description: string;
+    Fields: Field[];
+}
+
+interface Field
+{
+    Name: string;
+    Type: string;   // Name of the Synery Type (e.g. "STRING" or "BOOL")
+    Description: string;
+    IsNullable: boolean;
+    IsKey: boolean;
+    IsForeignKey: boolean;
+    ForeignKeyDescription: string;
+}
+
+interface FilterDefinition
+{
+    Name: string;
+    ExpectedType: string;   // Name of the Synery Type (e.g. "STRING" or "BOOL")
+    SupportedFilterTypes: string[];     // e.g. "NotEqual", "LessThanOrEqual" or "Like"
+    Description: string;
+}
+</textarea>
+
+            <h4>Routes</h4> 
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/{pluginId}/{instanceId}/question</dt>
+                <dd>
+                    Returns an array of Questions the developer can/must answer to open a connection with the foreign system/file the provider plugin is communicating with.
+                </dd>
+                <dt><span class="rest post">POST</span> /environment/plugin/providerplugin/{pluginId}/{instanceId}/connection/open</dt>
+                <dd>
+                    Opens a connection and returns a <code>ConnectionInfo</code> object that contains some useful information like a list of endpoints with all the supported resources, schemas and parameters (questions, filters, request-values).
+                </dd>
+            </dl>
+
+
+        </section>
+    </div>
+</div>

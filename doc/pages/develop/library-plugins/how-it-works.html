@@ -1,0 +1,116 @@
+<style type="text/css">
+</style>
+
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>How does it work?</h2>
+
+            <p>
+                A Library Plugin offers functions and variables that can be used in Synery code. The plugin can be implemented based on any .NET Common Language Runtime (CLR) language for example C# or Visual Basic .NET.
+            </p>
+
+            <p>There are two types of extensions:</p>
+
+            <ul>
+                <li>
+                    <strong>Static Functions</strong><br />
+                    Functions that can be called from Synery code and can take parameters and return a value. All exchanged values must be <a href="#/develop/general/supported-datatypes">supported types</a>.
+                </li>
+                <li>
+                    <strong>Static Variables</strong><br />
+                    Variable values that can be set and/or get in Synery code. All exchanged values must be <a href="#/develop/general/supported-datatypes">supported types</a>.
+                </li>
+            </ul>
+
+            <p>Lets make a few examples.</p>
+
+            <h3>Example: A Static Function</h3>
+
+            <p>Assume we need s String replacement function in Synery that can be used like this:</p>
+
+<textarea class="editor" data-editor="synery">
+STRING result;
+STRING example = "This is a simple example.";
+
+result = $Helpers.Replace(example, "simple", "simple and nice");
+
+// result: "This is a simple and nice example."
+</textarea>
+
+            <p>The <code>$Helpers</code> identifier of the Library Plugin can be chosen by the interface developer when adding the reference of the Library Plugin to the interface definition.</p>
+
+            <p>The name and the parameters of the static function are specified by the Library Plugin.</p>
+
+            <h4>Creating a Static Extension in C#</h4>
+
+            <p>To create a static function like used in the example above we need to create a constructorless class that implements the interface <code>IStaticExtension</code>:</p>
+
+<textarea class="editor" data-editor="csharp">
+public class MyStaticExtension : IStaticExtension
+{
+    public string Namespace { get { return null; } }
+
+    [StaticFunction]
+    public string Replace(string subject, string oldValue, string newValue)
+    {
+        if (subject == null) return null;
+
+        return subject.Replace(oldValue, newValue);
+    }
+}
+</textarea>
+
+            <p>As you can see the method <code>Replace</code> is marked with a <code>[StaticFunction]</code> attribute. We have to mark all methods that we would like to provide over the library plugin with that attribute. Otherwise Interface Booster would ignore the method.</p>
+
+
+
+            <h3>Example: A Static Variable</h3>
+
+            <p>Assume we need the current date:</p>
+
+<textarea class="editor" data-editor="synery">
+DATETIME example;
+
+result = $Helpers.Today;
+
+// result is now assigned with todays date
+</textarea>
+
+            <p>The name of the static variable is specified by the Library Plugin.</p>
+
+            <h4>Creating a Static Variable in C#</h4>
+
+            <p>To create a static variable like used in the example above we need to create a constructorless class that implements the interface <code>IStaticExtension</code>:</p>
+
+<textarea class="editor" data-editor="csharp">
+public class MyStaticExtension : IStaticExtension
+{
+    public string Namespace { get { return null; } }
+
+    [StaticVariable]
+    public DateTime Today
+    {
+        get
+        {
+            return DateTime.Today;
+        }
+    }
+}
+</textarea>
+
+            <p>As you can see the property <code>Today</code> is marked with a <code>[StaticVariable]</code> attribute. We have to mark all properties that we would like to provide over the library plugin with that attribute. Otherwise Interface Booster would ignore the property.</p>
+
+            <p>You may also have noticed that the property only has a getter but not a setter.</p>
+
+            <p>Whether you implement a getter and/or a setter depends on the variable. In the example above only a getter is used because it doesn't make sense to overwrite the todays date.</p>
+
+            <p>But there can be other use cases where it makes sense to offer a setter. For example for configuration settings.</p>
+
+        </section>
+    </div>
+</div>
