@@ -1,0 +1,104 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+    <h2>Records and Tables <span class="label label-warning">draft</span></h2>
+
+    <p>
+        A record is a composition of values. It is an instance of a <a href="#/docs/synery/base-language/record-types">record type</a>. The record type specifies what fields a record can have. On the other side are tables. A table consists of rows and columns (fields).
+    </p>
+
+    <p>Records are stored in memory (RAM) and tables in the Synery Database, which stores the data on the harddisk</p>
+
+    <p>
+        Primitive values of a record can be stored in a table row and the way arround the values of a table row can be loaded into a record.
+    </p>
+
+    <p>
+        For the mapping between a row and a record the field names are used. If a field only exists in one of both the field value is left <code>NULL</code>.
+    </p>
+
+    <h3>ADD</h3>
+
+    <p>
+        With <code>ADD</code> you can append a new record (see: <a href="#/docs/synery/base-language/record-types">Record Types</a>) to a table.
+    </p>
+
+    <p>
+        If the table doesn't already exists it is created based on the definition of the <a href="#/docs/synery/base-language/record-types">Record Type</a>.
+    </p>
+
+    <p>
+        Now let's see how this looks in Synery:
+    </p>
+
+<textarea class="editor" data-editor="synery">
+// define a record type:
+#Person(INT Id, STRING Firstname, STRING Lastname);
+
+// create two records:
+
+// you can assign each field by name...
+#Person monika = #Person(Id = 5, Firstname = "Monika", Lastname = "Meyer");
+
+// ...or you can specify the values in the right order
+#Person debby = #Person(17, "Debby", "Smith");
+
+// add the people to the table:
+ADD monika TO \myTables\myPeople;
+ADD debby TO \myTables\myPeople;
+
+// it is also possible to create and add a person on the fly:
+ADD #Person(22, "Mike", "Meyer") TO \myTables\myPeople;
+</textarea>
+
+<p>
+The result will look like this:
+</p>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th colspan="3">\myTables\myPeople</th>
+        </tr>
+        <tr>
+            <th>Id (INT)</th>
+            <th>Firstname (STRING)</th>
+            <th>Lastname (STRING)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>5</td>
+            <td>Monika</td>
+            <td>Meyer</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Debby</td>
+            <td>Smith</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Mike</td>
+            <td>Meyer</td>
+        </tr>
+    </tbody>
+</table>
+
+    <p>It is also possible to give multiple records in one <code>ADD</code> statement:</p>
+
+<textarea class="editor" data-editor="synery">
+// multiple records can be given separated by a comma:
+ADD monika, debby TO \myTables\myPeople;
+
+// also possible for records created on the fly:
+ADD #Person(22, "Mike", "Meyer"), #Person(28, "Susan", "Miller") TO \myTables\myPeople;
+</textarea>
+
+</section>
+</div>
+</div>
