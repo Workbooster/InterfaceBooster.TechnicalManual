@@ -1,0 +1,44 @@
+<div class="row bg0">
+<div class="container">
+<section class="grid4_1">
+    <div data-include="docs/nav"></div>
+</section>
+
+<section class="grid4_3">
+<h2>Library Plugins <span class="label label-warning">draft</span></h2>
+
+<p>
+Library Plugins allow Synery developers to easily extend the base functionality of Synery. With the knowledge of a .NET programming language like C# or VB.NET you can implement additional functions, that can be used within Synery but are executed as .NET Common Language Runtime Code. Therefore everything you can do in .NET you can also do within Synery.
+</p>
+
+<p>
+The only thing a Synery developer needs to do, is to reference the Library Plugin in the <a href="#/docs/interfacebooster/interface-definition">Interface Definition</a>.
+</p>
+
+<h3>Terms</h3>
+
+<p>
+The following terms are used in connection with Library Plugins.
+<p>
+
+<dl class="definition">
+    <dt>Library Plugin</dt>
+    <dd>
+        A Library Plugin is a DLL assembly that extends the Interface Booster. It may provide some static functions and some static variables that can be used in Synery code.
+    </dd>
+    <dt>Static Function</dt>
+    <dd>
+        It is a function that can be used in Synery code. A function can take <a href="#/docs/synery/base-language/primitive-types">primitive data types</a> as parameters and can also return a primitive typed value.<br />
+        From the .NET-view a static function is a public method (marked by a <code>[StaticFunction]</code>-attribute) of a class that implements the <code>IStaticExtension</code> interface and has no constructor.
+    </dd>
+    <dt>Static Variable</dt>
+    <dd>
+        It is a variable that can be used in Synery code to get or set a value. A variable can be a <a href="#/docs/synery/base-language/primitive-types">primitive data type</a>. It can be read-only or write-only.<br />
+        There are many use cases for static variables. For example a read-only variable could represent the current date. Or a variable could be used to specify the recipients of an E-Mail in an e-mail Library Plugin.
+        From the .NET-view a static variable is a public property (marked by a <code>[StaticVariable]</code>-attribute) of a class that implements the <code>IStaticExtension</code> interface and has no constructor.
+    </dd>
+</dl>
+
+</section>
+</div>
+</div>
