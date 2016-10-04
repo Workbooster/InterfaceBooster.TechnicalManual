@@ -109,18 +109,22 @@ interface LibraryPlugin
 
             <h3>/environment/plugin/providerplugin/{pluginId}/{instanceId}</h3>
 
-            <p>Globally available plugins that can be used/referenced in all interface definitions.</p>
+            <p>More information about the installed provider plugins. With this endpoint it is also possible to open a new provider plugin connection, to request resources and view the data schemas.</p>
 
             <h4>Models</h4> 
 
 <textarea class="editor" data-editor="typescript">
 interface ConnectionSettings
 {
+    ProviderPluginGuid: string;
+    ProviderPluginInstanceGuid: string;
+    ConnectionIdentifier: string;
     Answers: Answer[];
 }
 
 interface ConnectionInfo
 {
+    ConnectionIdentifier: string;
     ProviderPluginGuid: string;
     ProviderPluginInstanceGuid: string;
     Endpoints: Endpoint[];  // A Connection can have multiple Endpoints
@@ -128,12 +132,20 @@ interface ConnectionInfo
 
 interface Endpoint
 {
-    Id: string;     // Name and Path separated by "/"
+    Id: string;     // Name and Path separated by "."
     Name: string;
     Path: string[];
     Description: string;
-    Resource: Resource;
-    Type: string;   // "READ", "UPDATE", "CREATE", "SAVE", "DELETE", "EXECUTE"
+
+    SupportedCommands: string[]; // e.g. "READ", "UPDATE", "CREATE", "SAVE", "DELETE", "EXECUTE"
+
+    // a resource may be null if the endpoint doesn't support the command type
+    ReadResource: ReadResource;
+    UpdateResource: UpdateResource;
+    CreateResource: CreateResource;
+    SaveResource: SaveResource;
+    DeleteResource: DeleteResource;
+    ExecuteResource: ExecuteResource;
 }
 
 interface Resource
@@ -236,9 +248,61 @@ interface FilterDefinition
                 <dd>
                     Returns an array of Questions the developer can/must answer to open a connection with the foreign system/file the provider plugin is communicating with.
                 </dd>
-                <dt><span class="rest post">POST</span> /environment/plugin/providerplugin/{pluginId}/{instanceId}/connection/open</dt>
+
+                <dt><span class="rest post">POST</span> /environment/plugin/providerplugin/connection/open</dt>
                 <dd>
+                    Requires a body of type <code>ConnectionSettings</code>.<br />
                     Opens a connection and returns a <code>ConnectionInfo</code> object that contains some useful information like a list of endpoints with all the supported resources, schemas and parameters (questions, filters, request-values).
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection</dt>
+                <dd>
+                    Lists all connections that already have been opened. It returns a list of <code>ConnectionInfo</code> objects.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}</dt>
+                <dd>
+                    Reads the information about a connection that already has been opened. It returns a <code>ConnectionInfo</code> object.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/</dt>
+                <dd>
+                    Returns a list of <code>Endpoint</code> objects for the given connection.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}</dt>
+                <dd>
+                    Returns a <code>Endpoint</code> object for the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/CREATE</dt>
+                <dd>
+                    Returns the main <code>CreateResource</code> of the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/DELETE</dt>
+                <dd>
+                    Returns the main <code>DeleteResource</code> of the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/EXECUTE</dt>
+                <dd>
+                    Returns the main <code>ExecuteResource</code> of the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/READ</dt>
+                <dd>
+                    Returns the main <code>ReadResource</code> of the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/SAVE</dt>
+                <dd>
+                    Returns the main <code>SaveResource</code> of the specified endpoint.
+                </dd>
+
+                <dt><span class="rest get">GET</span> /environment/plugin/providerplugin/connection/{connectionIdentifier}/endpoint/{endpointId}/UPDATE</dt>
+                <dd>
+                    Returns the main <code>UpdateResource</code> of the specified endpoint.
                 </dd>
             </dl>
 
