@@ -1,0 +1,78 @@
+<div class="row bg0">
+    <div class="container">
+        <section class="grid4_1">
+            <div data-include="develop/nav"></div>
+        </section>
+
+        <section class="grid4_3">
+            <h2>File System <span class="label label-warning">draft</span></h2>
+
+            <p>
+                Services relating to the integrated file system functionality of Interface Booster.
+            </p>
+
+
+            <h3>/filesystem</h3>
+
+            <p>Each Interface Booster Server Instance has its own file system. This file system is shared by all Interface Definitions that are installed on the same Server Instance.</p>
+
+            <p>The file system is physically situated in the instance directory under: <code>[Path to instance directory]\filesystem\</code> </p>
+
+            <h4>Models</h4>
+
+            <textarea class="editor" data-editor="typescript">
+interface DirectoryMetaData
+{
+    Name: string;                           // Required - The name of the directory (e.g. "MyDirecory")
+    Path: string;                           // Required - The full path 
+                                            // (e.g. "/LevelOne/LevelTwo/MyDirecory" or "/" for the root directory)
+    DateOfCreation: Date;                   // Read only - Date and time when directory was created
+    DateOfLastChange: Date;                 // Read only - Date and time when directory last was modified
+    NestedDirectories: DirectoryMetaData[]; // Read only - All subdirectories
+    NestedFiles: FileMetaData[];            // Read only - All files in this directory
+}
+
+interface FileMetaData
+{
+    Name: string;                           // Required - The name of the file including the extension 
+                                            // (e.g. "myFile.txt")
+    Path: string;                           // Required - The full path 
+                                            // (e.g. "/LevelOne/LevelTwo/myFile.txt")
+    Size: number;                           // Read only - The size of the file in Kilo Bytes
+    DateOfCreation: Date;                   // Read only - Date and time when file was created
+    DateOfLastChange: Date;                 // Read only - Date and time when file last was modified
+}
+
+            </textarea>
+
+            <h4>Routes</h4>
+
+            <dl class="definition">
+                <dt><span class="rest get">GET</span> /filesystem/directory?path={path}</dt>
+                <dd>
+                    Returns the <code>DirectoryMetaData</code> for the directory addressed by the <code>path</code>. If there is no directory a HTTP 404 error is returned.
+                </dd>
+                <dt><span class="rest get">GET</span> /filesystem/file?path={path}</dt>
+                <dd>
+                    Returns the <code>FileMetaData</code> for the file addressed by the <code>path</code>. If there is no file a HTTP 404 error is returned.
+                </dd>
+                <dt><span class="rest get">GET</span> /filesystem/file/download?path={path}</dt>
+                <dd>
+                    Downloads the file addressed by the <code>path</code>. If there is no file a HTTP 404 error is returned.
+                </dd>
+                <dt><span class="rest post">POST</span> /filesystem/file</dt>
+                <dd>
+                    Create/upload a file by sending the <code>FileMetaData</code> and the file binary data as <a href="https://stackoverflow.com/questions/8659808/how-does-http-file-upload-work" target="_blank">multipart/form-data request</a>.
+                    <br />
+                    An existing file will be overwritten.
+                </dd>
+                <dt><span class="rest delete">DELETE</span> /filesystem/file?path={path}</dt>
+                <dd>
+                    Deletes the file addressed by the <code>path</code>. If there is no file a HTTP 404 error is returned.
+                </dd>
+
+            </dl>
+
+        </section>
+    </div>
+</div>
