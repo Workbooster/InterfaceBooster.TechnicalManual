@@ -20,8 +20,15 @@ section.main table.definition { font-size: 0.9em; border-collapse: collapse; mar
     section.main table.definition > thead { background-color: #FAFAFA; text-align: left; }
         section.main table.definition > thead tr:first-child { background-color: #f0f0f0; font-size: 1.1em; }
 
+section.main table.product { font-size: 0.9em; border-collapse: collapse; margin: 24px 0px 24px 0px; width: 95%; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
+    section.main table.product th, table.product td { border: 1px solid #ECECEC; padding: 4px 12px 4px 12px; }
+    section.main table.product > thead { background-color: #f0f0f0; text-align: left; }
+    section.main table.product tr { border-bottom: 1px solid #ECECEC; }
+    section.main table.product tr:nth-child(even) { background-color: #FAFAFA; }
+
 section.main .editor { margin: 24px 0px 24px 0px; width: 95%; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
 section.main .imagelink img { -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
+section.main .btn { cursor: pointer; margin: 0px 0px 0px 12px; padding: 6px 12px 6px 12px; line-height: 1.5; color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 400; text-align: center; display: inline-block; white-space: nowrap; vertical-align: middle; background-color: #5bc0de; border-radius: 4px; -moz-border-radius: 4px; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
 
 section.main .label { margin: 0px 0px 0px 12px; padding: 2px 12px 2px 12px; color: #FFFFFF; text-transform: uppercase; font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 400; background-color: #777777; border-radius: 4px; -moz-border-radius: 4px; -webkit-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); -moz-box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3); }
 
